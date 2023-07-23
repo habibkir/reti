@@ -1,0 +1,129 @@
+* Divisione Spazio
+si basano su una struttura a matrice
+mai visto una rom? quello, ma /dinamico/, una eprom
+
+nella divisione di spazio puoi cambiare linea ma non trama
+una linea è fatta di trame
+
+vale a dire, puoi andare dall'essere il quinto nella linea 6 all'essere il quinto nella linea 4, ma sarai sempre il quinto della linea
+
+prima la chiusura in-out veniva fatta in modo elettromeccanico (rele')
+ora la fanno in modo tutto elettornico (transistor bjt)
+
+si ricordi che
+ - telefonia analogica :: i due utenti sono collegati per tutto il tempo
+ - telefonia digitale :: i due utenti sono sollo collegati per quanto basta ogni volta a mandare i bit di segnale ogni volta, al resto ci pensa shannon
+
+** Costo
+quando si hanno \(N\) ingressi ed \(M\) uscite ci voglioni \(N \times M\) collegamenti in mezzo
+quindi il costo di una rete S può essere visto come questo numero di collegamenti
+\[ C = N \times M \]
+
+* Divisione Tempo
+non vanno a portare canali in altri canali, agiscono nel range di un singolo canale
+permutano le trame all'interno del singolo canale
+
+completamente elettronica, sono delle memorie che vengono lette e scritte in ordini diversi per avere le trame in ordini diversi prima e dopo
+un buffer di riordinamento per la connectionless, ma al contrario
+
+la capacità di ogni cella utilizzata è di un byte, visto che telefonia digitale di standard usa quella
+
+** Scrittura e Lettura
+- scrittura sequenziale, lettura casuale ::
+  scrivi nell'ordine che ti arrivano
+  leggi nell'ordine che vuoi escano
+- scrittura casuale, lettura sequenziale :: 
+  scrivi nell'ordine che vuoi in uscita
+  leggi nell'ordine delle celle che ormai è quello
+
+** Costo
+la struttura deve consentire in un tempo di trama di (\(125 \mu s\) per standard) due accessi alla memoria, uno il lettura e uno in scrittura
+indicando con \(N\) il numero dei canali, e assumendo che il costo della struttura sia legato al tempo di accesso \(t_{\alpha}\) (si approssima (male) uguale per lettura e scrittura), allora il costo della rete sarà circa
+\[ C = t_{\alpha} \leq \frac{Tempo\ Trama}{2N} \]
+
+nella telefonia digiale il tempo di trama è fisso, per standard, e per Shannon
+
+
+* MULTISTADIO
+ci sono due tipi di multistadio
+ - quelle con un solo tipo di stadio, tipo \(S-S\) o \(S-S-S\)[fn::una struttura \(T-T\) non avrebbe senso, puoi già fare tutte le permutazioni con un'unità, più unità ci metteresti solo più tempojj]
+ - quelle con più tipi di stadi, tipi \(T-S\ S-T\) o \(T-S-T\ S-T-S\)
+
+lo scopo delle strutture multistadio omogenee è quello di costare meno dell'equivalente monostadio e funzionare comunque.
+lo scopo delle strutture multistadio è poter cambiare sia la trama che il canale.
+
+** Strutture \(S-S\)
+entri in uno strato di \(S\) ed esci da uno strato di \(S\)
+ - il primo strato si chiama *primo stadio*
+ - il secondo strato si chiama *secondo stadio*
+
+una struttura \(S-S\) \(N \times M\) costa meno di una struttura \(S\) \(N \times M\), però purtroppo la struttura \(S-S\) in questione è bloccante
+
+*** Bloccante
+ - pippo entra nel blocco 1 del primo stadio, e devo uscire dalla linea 7, gestita dal blocco 3 del second stadio
+ - piero un'altra entra nel blocco 1 del primo stadio, e deve uscire dalla linea 8, gesita sempre dal blocco 3 del secondo stadio
+ - ma il blocco 1 del primo stadio ha già un collegamento col blocco 3 del secondo stadio, per pippo, quindi pietro non può effettuare il collegamento, visto che il blocco 1 è collegato solo una volta al blocco 3.
+
+ok, se il problema è che il blocco 3 ha un solo collegamento allora facciamo più collegamenti dal blocco 1 al blocco 3
+
+facciamo un esempio di una linea che ha 25 ingressi e 8 uscite
+ - \(S\) unica :: \(25 \times 8 = 200\)
+ - \(S-S\) naive :: facciamo
+   - stadio 1 :: 5 blocchi, 5 ingressi a blocco, 4 uscite a blocco
+   - stadio 2 :: 4 blocchi, 5 ingressi a blocco, 2 uscite
+   il costo al primo stadio fa \[ C_1 = 5 \times 4 = 20 \]
+   il costo totale del primo stadio è \[ 5 \times C_1 = 100 \]
+   il costo di ciascun elemento del secondo stadio è \[ C_2 = 5 \times 2 = 10 \]
+   il costo totale del secondo stadio è \[ 4 \times C_2 = 40 \]
+   quindi la rete \(S-S\) naive costa \(100 + 40 = 140\)
+ - \(S-S\) non bloccante ::
+   per fare sì che non sia bloccante ogni elemento del primo stadio deve poter dare su tutte le uscite della rete
+   quindi avremo
+   - stadio 1 :: 5 blocchi, 5 ingressi, *8 uscite*, totale *40 uscite*
+   - stadio 2 :: 4 blocchi, *10 ingressi*[fn::per averne uno a uscita del primo], 2 uscite
+     ora già il primo stadio costa, il singolo \[ C_1 = 5 \times 8 = 40 \]
+     e il totale \[ 5 \times C_1 = 5 \times 40 = 200 \]
+     cominciamo bene
+     poi c'è pure il secondo stadio ma ve lo risparmio
+
+** Strutture \(T-S\)
+inizio con una T, finisco con una S, così posso scazzare sia i canali che le trame
+è bloccante, si pensi ad esempio al caso
+ - la prima trama e le seconda trama, del primo canale, vogliono finire una nel secondo e una nel terzo canale
+ - per farlo dovrei attaccare l'ingresso 1 all'uscita 2 e all'uscita 3 della S
+ - non posso, quindi tutte le trame del primo canale finiranno dove finisce il primo canale
+
+** Strutture \(S-T\)
+simmetrica rispetto alla \(T-S\)
+bloccante pure questa
+si pensi ad esempio al caso
+ - la prima trama del canale 2 e la prima trama del canale 3
+ - vogliono finire nella terza e quarta trama del canale 4 (quindi richieste non in conflitto)
+ - per farlo però dovrei attaccare sia l'entrata canale 2 che l'entrata canale 3 all'uscita canale 4
+ - non posso, quindi[fn::esiste il blocco, ed il blocco è Dio ~San Tommaso] è bloccante
+
+** Strutture \(T-S-T\)
+ok, la \(S-T\) e la \(T-S\) erano bloccanti perchè ... trama
+mettici una \(T\) dopo
+hai risolto
+visto che non ho idea di come cazzo ha risolto tiriamoci prima i test case della \(S-T\) e della \(T-S\)
+*** Più della \(S-T\) 
+*** Più della \(T-S\) 
+
+
+** Strutture \(S-S-S\)
+analisi di clos
+il caso peggiore sarebbe
+allora
+???
+Profit
+
+* Lee
+Clos voleva la certezza matematica che non bloccasse
+Lee ha fatto l'ingegnerata, anche se si blocca, la dimezzo, si blocca comunque, ma si blocca così poco che non valrebbe la pena raddoppiarla
+...
+pagina 54 del pdf
+
+  
+
+   

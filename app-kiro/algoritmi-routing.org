@@ -1,0 +1,38 @@
+* CUM Tabella
+** Link state
+ogni nodo dispone di una tabella che associa ,ad ogni possibile destinazione, un percorso, questo mediante la specifica =next-hop= del nodo vicino
+
+nella stessa tabella viene inoltre specificato il "costo" del percorso
+
+*** Tabella
+si inizia che ogni nodo conosce il costo dei collegamenti solo con i propri vicini, finisce che ogni nodo individua il cammino ottimo verso ogni altro nodo 
+
+**** implementazione collaborativa
+ogni nodo definisce in maniera autonoma la propria tabella di routing, ogni nodo poi pubblica la propria tabella
+dopo lo scambio parte la fase di aggiornamento, in cui date le informazioni dagli altri nodi,
+i singoli nodi aggiornano le proprie conoscenze sugli altri nodi e su come raggiugnerli, ad esempio se passando da altri nodi si può fare/fare prima a raggiungere nodi prima lontani/irraggiungibili
+
+**** Aggiornamento
+l'aggiornamento della tabella può essere anche richiesto in caso di eventi eccezionali o guasti per farsi un'idea di che cazzo sta succedendo e di come dovrei aggiornare i nodi di conseguenza.
+
+in caso di irraggiungibilità del nodo la distanza viene settata a \(\infty\).
+
+*** Le problemos
+**** Infinito finito
+**** Split horizon
+si prevede l'invio di aggiornamenti solo per i cammini che non interessano il nodo destinazione degli aggrionamenti
+**** Split horizon e poison reverse
+questa tecnica consente di nono aggiornare il costo dei cammini che coinvolgono il nodo destinazione garantendo comunque un tempo di visita adeguato, con questo metodo B pubblicizza ad A il costo del collegamento verso x assegnandoli un valore convenzionale grande in quanto non interessa A che vede direttamente.
+(vale a dire, ce l'hai già in faccia, tienitelo)
+
+** Distance vector
+con il link state il nodo deve avere visibilità di tutta al rete
+con questo algoritmo ci si limita alla misura dei costo dei collegamenti con i vicini immediati
+la tabelal di routing in face iniziale vede solo i vicini, anche in questo caso è prevista la fase collaborativa, il risultato finale è lo stesso sia per distance vector che per link state.
+con entrambi gli algoritmo si arriva a definire una stessa rete ad albero per ogni nodo della rete che comprende i percorsi a costo minimo in grado di connettersi ad aogni nodo con tutti gli altri nodi della stessa rete.
+
+ad esempio l'algoritmo di bellman ford utilizza la tecnica del distance vectorl
+
+** Gerarchici
+nascono come necessità di rispondere al problema di un numero di router potenzialmente ingestibile
+autonomous system, raggruppamento di router visto all'esterno come un unico dominio, o elemento

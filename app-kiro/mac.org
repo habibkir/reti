@@ -1,0 +1,65 @@
+* Livello MAC (Media Access Control)
+lo strato MAC ha il compito di definire le modalità di accesso/condifizione allo strato fisico
+questo controllo può svolgersi tramite politiche di
+ - Accesso Oridnato :: quali polling, token ring, TDMA, o FDMA,
+   questo prevede regole fisse per distribuire l'utilizzo del mezzo in maniera equa, l'utilizzo è esclusivo, in modo da non avere conflitti sull'accesso.
+   Il controllo può anche svolgersi con politiche di
+ - Accesso Casuale :: quali CSMA o ALOMA (non so se intendeva aloha ma negli appunti c'è scritto aloma)
+
+** Modalità ad accesso ordinato
+cominciamo male con il
+*** Polling (interrogazione)
+pervede uan rete di tipologia a bus, esempi di simili politiche sono Roll-Call o Hub-Polling.
+**** Roll Call
+si identifica nella rete un nodo master che possiede la lista delle interrogazioni (roll).
+il master provedderà ad interrogare (call) le stazioni secondo questa lista, dando ad ogni stazione il permesso di trasmettere, mandando un messaggio di abilitazione di/a/boh quella stazione, quando il nodo ha finito di utilizzare il mezzo questo invia un segnale di rilascio che viene ricevuto dal master, il quale sa che adesso ok, questo ha fatto, si va al prossimo.
+***** Problemi
+I tempi di commutazione possono pesare un po' too much sull'efficieza della rete
+
+**** Hub Polling
+Il master attiva l'accesso sul mezzo trasmissivo al nodo a lui più lontano, che quando ha finito notifica il master, mandando indietro il pacchetto per l'accesso, essendo a bus il pacchetto viene prima ricevuto dai nodi in mezzo, uno dopo l'altro, che qualora necessitassero di utilizzare il bus pososno quindi trattenerlo, utilizzare la "chiave" al bus, e rilaciarlo nuovamente in direzione del master, questo riduce i tempi di commutazione introdotti dal roll call
+
+**** Comunanze
+entrambe queste tecniche condividono le modalità di gestione dell'accesso
+ - accesso gated :: prevede la trasmissione dei pacchetti arrivati al nodo in una precisa finestra temporale
+ - accesso esaustivo :: continua a trasmettere pacchetti fino all'esaurimento dei pacchetti in attesa, questo può portare a una monopolizzazione del canale se un nodo gli viene la dissenteria.
+
+vale a dire, hai l'accesso, hai l'accesso, o ce l'hai per tot tempo, o ce l'hai finchè non finisci i dati da mandare
+
+**** Token ring
+prevede una topologia ad anello, come si può intuire dal nome
+è distruibuito, non esiste un master, prevede l'utilizzo di un token come testimone, il messaggio token è in comune a tutte le stazioni della rete, una volta ricevuto il token può essere trattenuto per dare diritto di accesso alla rete, dopo l'utilizzo della rete il token viene reivniato a fare giro giro tondo, il senso di propagazione è fisso, versione estremizzata del roll call, ma /DECENTRALIZZATO, BABY/
+
+*** Modalità di accesso casuale(alla cazzo di cane)
+in queste modalità non esiste nessuna froma di coordinazione tra i nodi della rete, appena gli serve accedere provano ad accedere, vi pososno essere quindi competizioni per il diritto di accesso, e quindi collisioni.
+l'accesso concorrente porta alla distruzione dei dati immessi.
+
+le collisioni possono essere gestite
+ - evitandole (CSMA)
+ - mitigando collissioni avvenute
+
+   
+**** CSMA
+Carrier Sensing Multiple Access
+tenta di prevenire collisioni ascoltando il canale prima di fare l'accesso.
+principio dell'ascoltare prima di parlare, utile anche per non essere un pirla con gli altri.
+i nodi prima di effettuare l'accesso al canle controllano che non vi sia gia traffico/trasmisione di roba all'interno di questo.
+
+questo riduce la frequenza delle collisioni ma non le rende impossibli
+richiede dunque anche un bel po' de
+
+**** Tecniche Risoluzione Collisioni
+sono coinvolti almeno due nodi, il nuovo tentativo di accesso sarà programmato in maneira individuale e indipendente per ogni nodo.
+non posso farlo in modo deterministico (per motivi?), si fa quindi un'attesa di lunghezza scelta come cazzo capita.
+si utilizza una distribuzione uniforme ai fini di non avere scelte privilegiate che possano portare a nuove collisioni, se sceglievo tipo una guassiana ecco che si ammazzavano tutti al centro.
+
+**** Rilevazione Collisioni
+le collsiioni possono essere rilvate
+ 1. a riscontro diretto (tipo aloha)
+    la stazione che riceve il messaggio manda l'ack in broadcast
+    si sfrutta il fatto che la durata del canale è nota
+ 2. a rilevazione del segnale (CSMA)
+    una volta trasmessi i dati resto in ascolto del canale per vedere se ci sono ancora, se c'è collisione si sente di nuovo il segnale, comportando quindi che almeno una stazione si accorge della collisione.
+
+
+

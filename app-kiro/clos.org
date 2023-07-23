@@ -1,0 +1,15 @@
+#+title: Assenza di blocco
+calcolare il \(k\) che anche nel caso peggiore garantisce la completa assenza di blocco, (e se funziona nel caso peggiore allora funziona in tutti i casi)
+
+* Caso peggiore
+ - abbiamo \(n\) linee di ingresso nel primo blocco, facciamo che \(n-1\) non sono disponibili
+ - nello stadio di uscita facciamo che c'è una sola uscita libera
+ - i blocchi del secondo stadio che hanno occupato le \(n-1\) uscite del terzo blocco sono disgiunti da quelli che hanno occpuato le linee in ingresso sul primo blocco
+
+** Quindi abbiamo bisogno di
+ - \(n-1\) linee al primo blocco
+ - \(n-1\) linee al terzo blocco
+ - \(1\) linea da usare per fare la richiesta
+
+quindi \(2n-1\), condizione do clos
+

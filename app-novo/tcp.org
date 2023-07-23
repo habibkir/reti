@@ -1,0 +1,98 @@
+* TCP
+#+begin_quote
+TRANSMISSION CONTROL PROTOCOL
+#+end_quote
+
+protocollo a livello di trasporto orientato alla connessione affidabile
+crea connessione virtuale prima di mandare i pacchetti
+connessione dura per tutta la trasmissione
+
+sta a lui e non alla destinazione controllare che i pacchetti arrivino alla fine ordinati
+sta a lui chiedere il riinvio se il pacchetto non arriva o arriva incoerente (col checksum)
+
+prevede l'utilizzo di un buffer visto che mittente e destinatario potrebbero lavorare a velocità molto diverse
+** Buffer
+il mittente ha due aree
+ - una per memorizzare i datagrammi spediti non ancora riscontrati
+ - una per i datagrammi che devono ancora essere inviati
+
+il destinatario ha un buffer per tenere i messaggi intanto che questi vengono poi ordinati 
+
+** Invio di roba
+a differenza dell'udp puoi mandarci anche più di un pacchetto
+
+se la roba da mandare non sta in un pacchetto la mette in più pacchetti e la riordina in uscita
+durante i collegamenti interattivi viene determinata la dimensine massima di segmento come parametro della connessione scelto tipo ~BUF_SIZE~ di ~stdio.h~, una dimensione che funziona, e che non porta a scazzi (frammentazione) con il livello ip.
+
+la connessione virtuale creata è bidirezionale
+quando entrambe le parti hanno mandato tutto la connessione logica viene chiusa
+
+** Header
+è lungo 20 byte, fino a un massimo di 60 byte con opzioni e byte di padding
+i campi dell'header sono
+ - numero porta mittente :: 16 bit
+ - numero porta destinatario :: 16 bit
+ - numero di sequenza :: 32 bit, tiene la posizione del pacchetto nel flusso di pacchetti per poterli riordinare in uscita.
+   il mittente da un valore casuale al primo pacchetto del flusso, quindi non si parte sempre da 0, magari invece di /0-indexed/ o /1-indexed/ saranno /45563-indexed/, so' gusti.
+   La numerazione di un flusso è indipendente dalla numerazione di un altro flusso, basta che all'interno del singolo flusso il pacchetto successivo abbia indice incrementato di 1 rispetto al precedente.
+ - numero di riscontro :: 32 bit
+   serve per la notivica al mittente che il pacco è arrivato
+   il tcp usa il piggyback, se abbiamo a che manda a b
+   b manda il riscontro col prossimo pacco che invia, con altri dati
+   per essere valido come riscontro deve avere il bit di ack settato ad 1
+   1. A manda un pacchetto con numero di sequenza \(n\)
+   2. allora B risponde con un pacchetto che ha numero di riscontro \(n+1\)
+   3. visto che B, ricevuto \(n\) attende il pacchetto con numero di sequenza \(n+1\) 
+ - lunghezza header :: 4 bit, indica quanti byte stanno nell'header
+   visto che con 4 bit ci rappresenti 16, e che l'header tcp ha lunghezza dai 20 ai 60 serve un campo per specificare di volta in volta l'effettiva lunghezza
+ - bit riservati :: 6 bit riservati per eventuali utilizzi futuri
+ - flag :: 6 bit
+   - urg :: flag se il datagramma è urgente
+   - ack :: indica se il numero di riscontro è effettivamente un riscontro
+   - psh :: indica richiesta di invio di dati immediata
+   - rst :: richiesta interruzoine della comunicazione
+     pensa un "request to stop talking, plese shut the fuck up"
+   - syn :: bit che indicia l'inizio/instaurazione di una comunicazione
+   - fin :: bit che indica la chiusura della comunicazione in corso
+   - finestra :: 16 bit, riferito allo sliding window, indica quanti byte riesce ad accettare il mittente.
+     valore deciso dal destinatario del flusso[fn::cosa che sembra un po' scortese]
+   - checksum :: 16 bit di checksum
+   - puntatore urgente :: 16 bit, valido solo quallo il flag =URG= è 1
+     contiene il numero di byte di dati urgenti
+     la lettura dei byte urgenti va dal primo byte del campo fino (ed escluso) quello indicato dal puntatore.
+   - opzioni :: campo di lunghezza variabile, se serve altro nell'header
+
+** Come avviene la connessione TCP?
+la fase di apertura della connessione logica tcp avviene utilizzando un handshake a tre fasi (three way handshake)
+ 1. la prima cosa che un client fa per farsi cagare da un server è mandare un messaggio, chiamato /SYN/, dove il il bit di SYN è pari a 1 e il numero di sequenza scelto alla cazzo per iniziare
+ 2. il server risponde con un messaggio /SYN + ACK/, in cui i bit di /SYN/ e /ACK/ sono settati entrambi
+    - il numero di sequenza sempre scelto alla cazzo per cominciare quindi in modo indipendente dal numero di sequenza del client, in quanto, per l'appunto, alla cazzo,
+    - il numero di riscontro pari a numero di sequenza ricevuto dal client, \(+\ 1\)
+    - da qui in poi questi due valori determineranno la numerazione di tutti i pacchetti inviati in questa comunicazione
+ 3. il client risponde con un messaggio chiamato /ACK/, dove il flag di /ACK/ è settato a 1
+     - numero di riscontro pari a numero di sequenza ricevuto dal server, \(+\ 1\) 
+
+finiti questi tre passaggi possiamo iniziare a mandarci roba, come foto di gatti o minaccie di morte
+e dopo che si mandano i dati, la connessione, come tutte le più belle cose, finisce proprio come le rose
+
+** Come si chiude la connessione TCP?
+la chiusura di una connessione TCP può chiudersi secondo una
+ - three way handshake, o una
+ - four way handshake
+
+*** Three way handshake
+la prima si svolge che
+ 1. quello che vuole terminare manda un messaggio, con o senza dati, settando il bit di /FIN/
+ 2. il proceso che riceve il pacchetto di /FIN/ risponde con un messaggio dove setta /FIN/ e /ACK/, messaggio noto come /FIN + ACK/.
+    questo messaggio può contenere gli utilimi dati da inviare, o può non contenere dati.
+ 3. chi ha iniziato la procedura di chiusura manda un messaggio senza dati con il fin di /ACK/ settato a 1, questo è il messaggio di /ACK/.
+
+*** Four way handshake
+la four way handshake è simile alla three way handshake ma prevede, in più rispetto alla precedente, anche un controllo di "ok ma finito finito? Che mi sa dovevo mandarti altra roba"
+la procedura di chiusura non viene quindi attivata se l'altro terminale non ha completato l'invio dei dati, le fasi preventive sono
+
+ 1. il processo che vuole terminare la connessione manda un messaggio, con o senza dati, e con /FIN/
+ 2. il processo che riceve /FIN/ risponde con un messaggio dove /ACK/ vale 1, per dire che ok, ho ricevuto il /FIN/, ma senza il /FIN/ settato, per dire che deve ancora mandare roba.
+ 3. quando ha finito di mandare roba, il processo che doveva ancora finire manda un messaggio con /FIN/ e[fn::jake] /ACK/
+ 4. il processo che ha iniziato l'handshake manda un messaggio di /ACK/, dopo l'invio di questo messaggio sanno tutti che è finita, e si chiude il collegamento
+   

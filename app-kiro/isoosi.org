@@ -1,0 +1,101 @@
+* OSI
+open system interconnection
+(tanto lo sappiano che volevano solo fare lo stack unwinding di iso)
+modello aperto che consente la convivenza in un astessa rete di apparecchiature e prodotti diversi
+architettura stratificata di tipi gerarchico, ci sono 7 livelli
+** Livelli
+ 1. Physical
+ 2. Data Link
+ 3. Network
+ 4. Transport
+ 5. Session
+ 6. Presentation
+ 7. Application
+
+*** Fisico
+ - dritto sull'hardware, si interfaccia direttamente col mezzo di trasmissione
+ - trasmette bit nel canale
+ - sincronizzazione sono cazzi del ricevitore (modulazione, decisione[fn::coglione])
+*** Data Link / Collegamento
+ - garantisce (controlla) l'integrit' dell'informazione ricevuta
+ - framing :: divide il flusso in pacchetti (frame?)
+ - flow control :: controllo del flusso, controlla che la velocità di ricezione sia coerente con la capacità di ricezione
+*** Rete / Network
+ - gestisce il routing, quindi il trasferimento attraverso la rete e la navigazione di questa, si occupa di cercare un percorso (si spera il percorso migliore) per connettere due utenti
+*** Trasporto
+ - garantisce il trasferimento su base end-to-end tra i processi
+ - gestisce le modalità connection oriented anche su reti che non supportano il connection oriented
+ - gestisce il controllo della congestione
+ - alla sorgente :: marca i pacchetti secondo l'ordine di generazione
+   #+begin_src rust
+     iterator.enumerate();
+   #+end_src
+ - alla destinazione :: ricostruisce l'ordine di quanto mandato (che potrebbe essere arrivato sparpagliato) utilizzando un bel bufferone
+*** Sessione
+ - si occupa del controllo della comunicazione
+*** Presentazione
+ - si occupa della sintassi delle informazioni (xml?)
+ - si occupa della cifratura (delle informazioni)
+ - si occupa delle informazioni
+*** Applicazione
+ - prende tutto il puttanaio di sotto per fornire servizi specifici all'utente finale, tipo mail, video streaming, chat, porno, o venire arato su rainbow six.
+
+* Modalità di commutazione di una rete
+visto che non si riesce a conenttere tutti i computer ad una stessa rete di solito si hanno più reti interconnesse
+queste reti venngono connesse tramite *switch*
+
+ - switch (commutatore) :: permette la comunicazione tra due nodi terminali qualsiasi, riceve dei dati e li inoltre in direzione della destinazione
+
+esistono 4 modalità di commutazione in una rete, queste sono
+ 1. commutazione di *circuito*
+ 2. commutazione di *messaggio*
+ 3. commutazione di *pacchetto*, che si divide a sua volta in
+    1) a *datagramma*
+    2) a *circuito virtuale*
+
+** Commutazione di Circuito
+inizia individuando un percorso fisico che collegi sorgente e destinazione, tale percorso rimane attivo e in uso (esclusivo) della comunicazione sorgente/destinazione per tutta la sua durata.
+questà modalità di commutazione si divide in 3 fasi
+ 1) *Creazione* del collegamento, e ricerca del percorso migliore end-to-end (Setup)
+ 2) *Mantenimento* e *controllo* del collegamento (Utilizzo)
+ 3) *Abbattimento* del collegamento (Reset)
+
+*** Vantaggiosa quando
+ - serve spesso la stessa connessione
+ - il tempo di utilizzo è molto maggiore al tempo di setup e teardown
+
+*** Svantaggi
+ - non prevede alcuna forma di memorizzazione dei modi di trasferimento, il collegamento è omogeneo
+
+** Commutazione di Messaggio
+si basa sul trasferimento di tutto il blocco informativo, del messaggio, per l'appunto.
+Non necessita di setup completo, e l'inoltro del messaggio avviene su base link-to-link invece che end-to-end.
+Non necessita di terdown visto che il setup è "distribuito" sui link-to-linkati, sui nodi, quello.
+La fase di setup distribuita è complessivamente meno setup della commutazione a pacchetto
+
+*** Vantaggiosa quando
+ - la connessione è salutaria e la quantità di informazione è limitata
+
+*** Svantaggi
+ - soffre con link non troop oaffidabili, probabilità di errore
+ - richiede un'elevata integrità, che porta a ritardo di trasferimento
+
+** Commutazione di Pacchetto
+se vi interessasse è quella utilizzata per internet
+quindi il resto si fotta
+nasce per miglirare criticità nella comunicazione a messaggio, l'informazione da inviare è suddivisa in pacchetti (di non troppi bit), quindi gli errori sono più gestiti
+
+*** A Circuito Virtuale
+prevede una fase di setup per calcolare il cammino migliore end-to-end
+**** Vantaggi
+ - (nel caso connection oriented) non necessita di operazioni alla destinazione per rispettare l'ordinamento
+ - il cammino è virtuale, quindi l'intero collegamento e i rami che lo costituiscono sono condivisi con altri flussi (vantaggio?)
+
+*** A Datagramma
+Non prevede l'obbiligo di seguire un percorso fisso sorgente/destinazione, in quanto la scelta può cambiare su base link-to-link.
+la modalità a datagramam consente anche  di lavorare in parallelo, cioè intanto che un nodo riceve un pacchetto, può trasmettere pacchetti precedenti, quindi viene ridotto il ritardo di trasferimento.
+non c'è "prenotazione" effettiva o virtuale delle risorse
+
+
+
+

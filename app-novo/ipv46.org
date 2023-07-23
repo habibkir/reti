@@ -1,0 +1,71 @@
+* TCP IP
+come nell'iso osi internet si basa sulla stratificazione della pila protocollare ma a differenza dell'iso osi ci sono solo quattro livello
+ - host to network
+ - internet
+ - trasporto
+ - applicazione
+
+** Host to Network
+ha il solo scopo di mascherare i livelli inferiori dagli strati internet et al
+quindi a prendere la parte hardware e farci qualcosa che sia compatibile con il tcp ip, prendere l'host fisico e renderlo compatibile con la rete, host to network, titoli di coda
+
+** Internet
+svolge la funzione coperta dal livello rete nell'iso osi
+gestisce il routing, la tramsissione di pacchetti, e le congestioni
+
+ci sono due versioni al momento, ipv4 e ipv6
+per gestire la fase di transizione dall'ipv4 all'ipv6, visto che al momento è diffuso il 4 e si sta provando a diffondere il 6, abemus dos approccis
+ - dual stack :: il singolo nodo implementa sia l'ipv4 che l'ipv6 così sa farli entrambi
+ - tunneling :: noto anche come xWayland
+   se due nodi ipv6 si mandano un pacchetto tramite una rete per cui certe porzioni parlano solo ipv4 allora
+   - all'ingresso delle sezioni si aggiugne una testata ipv4 al pacchetto
+   - all'uscita delle sezioni si rimuove questo pacchetto
+
+*** IPv4
+prima di trattare +la testata+ il protocollo IPv4 si sappia che nel livello ip oltre all'ip ci sono anche altri protocolli quali
+ - Internet Control Message Protocol :: per comunicare riguardo alla raggiugiblità di un nodo
+
+**** Header
+l'header IPv4 è formato da 13 campi ed è lungo 20 byte escludendo campi opzionali
+questi campi sono
+ - vesione :: del protocollo ip, qui 4
+ - IHL :: lunghezza in byte della testata, quindi anche indirizzo dell'inizio del payload
+ - type of service :: tipo di dati contenuti nel payload, a tipi di dati/servizi differenti corrispondono trattamenti differenti nella rete
+ - total lenght :: lunghezza totale del pacchetto (head e pay) in byte
+   questo campo è lungo 16 bit, per quanto i pacchetti di solito non vandano troppo oltre i 64 byte
+ - identification :: identificativo inserito dal mittente nei frammenti, serve per ricostruire il dato in ricezione
+ - flags :: usati come controllo per annunciare e gestire la frammentazione di un datagramma
+ - fragmento offset :: anche qui serve ad indicazioni funzionali circa la fase di ripristino di un datagramma frammentato
+ - time to live :: contatore a decremento, quando vale 0 il pacchetto muore.
+   decrementato per ogni hop del pacchetto, serve a evitare che dei pacchetti girino all'infinito
+ - protocol :: protocollo usato a livello di trasporto
+ - header checksum :: t'ha capito
+ - source address :: indirizzo ip del mittente
+ - destination address :: indirizzo ip del destinatario
+ - options :: in caso qui puoi aggiungere roba, se la lunghezza dell'header dice che hai dello spazio extra
+
+**** Frammentazione
+
+**** Indirizzo
+l'indirizzo ip non identifica in maneira univoca soltanto il dispositivo
+l'indirizzo si riferisce all'interfaccia di rete
+gli indirizzi ipv4 sono 32 bit
+
+***** Tipi di indirizzamento
+all'inizio erano tre byte per la rete e un byte per rete e un byte per interfaccia
+ai fin idi non avere solo 256 come massimo numero di interfaccie in una rete (pensa time square che puttanaio)
+quindi hanno messo l'indirizzamento *classful*, prima su 3 classi, poi a 5
+le classi erano contraddistinte da quanti bit a =1= avevano all'indizio
+ - a :: inizia con =0=
+ - b :: inizia con =10=
+ - c :: inizia con =110=
+ - d :: inizia con =1110=
+ - e :: inizia con =1111=
+
+purtroppo questa cosa sprecava un sacco di indirizzi   
+
+*** IPv6
+
+** 
+** 
+

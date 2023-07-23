@@ -1,0 +1,39 @@
+* Aloha
+la tecnica aloha è stata il primo esempio di una metodologia pratica per fare condividere un canale a più utenti senza coordinamento reciproco, questa techica è stata, nella sua versione base, sviullppata alle hawai...
+per permettere la condivisione di un canale radio tra più dispositivi per accedere ad uno stesso host
+la tecnica adotta una trasmissione dati a pacchetti, non è previsto nessun controllo sulllo stato del canale al momento in cui mandi
+esistono due versioni
+ - aloha puro
+ - aloha slotted
+
+** Aloha Puro
+questa versione non prevede, in maniera assoluta, nessuna forma di coordinamento, vai li, ciao[fn::o aloha], alla cazzo più completo.
+Le collisioni vengono rilevate adottando un metodo di riscontro diretto, in generale i nodi della rete condividono uno stesso canale per comunicare con il nodo centrale, le componenti di una rete di accesso basata su aloha sono a stella
+
+se la trasmissione avvienen senza collisioniil nodo è in grado di capirlo e mandare un riscontro in broadcast
+il ritardo che passa dal completamento del tentativo di accesso da parte di un nodo e l'eventuale messaggio di riscontro è noto a priori
+infatti questo è stato fatto per client e access point fissi nello spazio
+solo il nodo che gli interessa sapere come è andata si mette ad ascoltare sulla frequenza del riscontro
+passato quel tempo senza un riscontro sai che ahime', t'ha colliso, o comunque fallito, quindi si rimanda
+
+*** De nodis
+ogni nodo può gestire la trasmissione di un solo pacchetto, ogni nodo non può iniziare un nuovo tentativo di accesso se ne ha un'altro in corso, fino a quando questo non è stato completato con successo.
+
+*** Risoluzione Collisioni
+la modalità di risoluzione è volta a evitare ce ne siano altre
+quindi, visto che i nodi sono scoordinati, si fa la /superrazionalizzata/ del cazzo e "ok, ritento tra [intervallo], che troverò facendo [alla cazzo di cane], così minimizzo la probabilità che l'altro abbia scelto un tempo abbastanza vicino da fottermi"
+
+*** Note sul Puro
+nell'aloha puro viene individuato per tutte le stazioni un tempo di ritardo massimo, contato dal termine del timeout[fn::dell' "ok, si vede non t'ha cagato"] , entro il quale provare a farsi nuovamente cagare.
+si sceglie con probabilità uniforme tra \(0\) e \(timeout_max\) e poi si prova, nuovamente, a farsi cagare.
+
+in alcune versioni di aloha il \(timeout_max\) non è fisso ma può essere aumentato e abbassato entro una certa soglia
+
+** Aloha Slotted
+fatto per utilizzare di più il canale rispetto all'aloha puro
+nel caso dell'aloha slotted ogni nodo non può più provare alla cazzo ad accedere al canle, ma deve rispettare dei precisi vingoli temporali che comportano una sincronizzazzione temporale tra tutti  i nodi della rete, in altre parole il tempo è pensato suddiviso in intervalli regolari, per l'appunto in /slot/ di durata uguale al tempo di trasmissione del pacchetto.
+con questo meccanismo il /tempo di vulnerabilità/, quindi il tempo di apertura in cui può accadere una collisisone [fn:: che resta aperto ma mo' ne sono entrati due], che nell'aloha puro è due volte il tempo di pacchetto, si dimezza per l'aloha slotted, dove diventa una sola volta il tempo di pacchetto.
+
+qui sono determinanti ai fini di una sollissione solo le richieste di accesso del nodo dei nodi originate nel tempo di riconoscimento di slot precedente a quello in cui l'accesso viene tentato)
+il meccanismo di riconoscimento di una collisione e la conseguente modalità di risoluzione sono le stesse dell'aloha puro
+con la solita variante che il "mo' ci riprovo" è comunque slotted.

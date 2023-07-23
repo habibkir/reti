@@ -1,0 +1,130 @@
+* accesso multiplo
+condivisione del mezzo fisico
+puoi farlo con un ordine o alla cazzo
+** Ordine
+ - fdm tdm :: multiplexing per tempo o frequenza, infefficienti nelle lan perchè portano ad accesso discontinuo
+ - cdma :: code diviion multiple access
+   ogni utente trasmette con tutta la banda del canale
+   il ricevitore estrae solo la componente di interesse
+ - ofdma :: orhtogona frequency division multiple access
+   l'acronimo si desccrive da solo
+ - polling ::
+   - roll call :: centralizzato, master gestisce autorizzazione e rilascio della risorsa canale
+   - hub polling :: cooperazione tra nodi
+
+poi i tipi di accesso possono essere
+ - gated :: hai il canale con una time slice massima
+ - esaustivo :: hai il canale finchè hai roba da mandare
+
+altri tipi di accesso sono
+ - token passing :: implementazione distribuita, ci si passa la chiave (token) in giro
+
+** Alla cazzo
+ - aloha :: nessun controllo sullo stato del canale
+   - puro :: nessun cordinamento
+     mandi il pacchetto e aspetti un riscontro
+     se non arriva il riscontro aspetti un tempo alla cazzo[fn::con distribuzione uniforme in quanto così non ci sono tempi privilegiati che...] e poi rimandi il pacchetto, sperando che stavolta funzioni
+   - slotted :: il tempo è divsiso in slot lunghi quanto il tempo di trasmissione
+     i nodi possono mandare solo all'inizio di questi slot
+     così quelle collisioni che avvengono sono più contenute
+     collisioni gestite come nell'aloha puro, ma comunque slotted
+ - CSMA :: carrier sense multiple access volto a ridurre le collisioni, si controlla che il canale non sia occupato prima di manda roba
+   si può intepretare questo come collisione virtuale e riprovare dopo un tempo alla cazzo.
+   
+   Alcuni tipi di CSMA
+   - 1-persistent :: un solo nodo in ascolto costante, funziona con pochi nodi
+   - non persistent ::
+   - p-persistent :: si accede al canale su base statistica, ogni tanto alla cazzo
+   - cd :: (collision detection) si sta in ascolto sul canale anche durante la trasmissione per controllare che non arrivino flussi mentre sto fluendo
+
+* Ethernet
+può avere topologia a bus o stella
+usare cavo coassiale, doppino telefonico o fibra
+sviluppata perchè permette rate elevati ed è più flessibile di alternative quali FDDI
+
+** Livello MAC
+gestisce l'accesso al canale con csma cd modalità 1-persistent
+tutte le tecnologie ethernet hanno a livello di rete un servizio connectionless, quindi niente handshake
+se il frame ricevuto non è pertitnente (i byte di check crc non concordano) il frame viene scartato
+
+*** Frame ethernet
+ - preambolo :: 7 byte
+ - delimitatore :: un byte
+ - indirizzo destinazione :: 6 byte
+ - indirizzo mittente :: 6 byte
+ - lunghezza/tipo :: 2 byte
+ - dati ::
+ - crc :: 4 byte
+
+formato sempre quello
+lughezze del frame minima 64 byte e massima 1518 byte, quella massima per gestire i buffer e non monopolizzare il canale
+
+** Livello fisico
+ci sono varii ethernet e ognuno fa li cazzi sua con il livello fisico
+ - standard :: 10 mbps, implmentazioni
+   - 10base5 :: coassiale grosso, bus
+   - 10base2 :: coassiale sottile, bus (lughezza massima minore)
+   - 10base-T :: doppino telefonico, stella
+   - 10base-F :: fibra ottica, stella
+ - veloce :: 100 mbps, retrocompatibile
+ - gigabilt :: 1 gigabit, retrocomatibile
+ - 10 gigabilt :: 10 gigabit, retrocomatibile
+
+** dispositivi di connessione
+per far comunicare lan distinte o connettere la lan alla rete globale si usano
+ - a livello applicazione :: gateway
+ - a livello trasporto :: gateway
+ - a livello rete :: gateway e router
+ - a livello collegamento :: gateway, router, e bridge
+ - a livello fisico ::  gateway, router, bridge, e hub attivo
+   
+i dispositivi sono quindi
+ - hub passivo :: sta sotto l'hub attivo e agisce sotto il livello fisico, permette la continità del segnale tra cavi e reti distinti (internet mf)
+ - hub attivo :: ripetitore, connette a livello fisico due parti della sottrete, rigenera il segnale
+   quando ci sono più ethernet con un hub in mezzo si comportano da lan, csma cd
+ - bridge :: controlla gli indirizzi mac per l'accesso and company tramite la tablella del bridge, filtra e inoltra pacchetti, apparte il bridge può starci un
+ - switch livello 2 :: può operare per
+   - store and forward :: come un bridge, sicuro ma lento
+   - cut through :: come router, veloce ma può provocare perdita di frame
+   lo switch non è visibile ai nodi che specificano solo gli indirizzi di rete
+   di base serve a filtrare ma funziona anche per inoltrare
+   importante l'autoapprendimento sulla tabella di inoltro
+ - router :: processa pacchetti ricevuti dal livello di collegamento, li mette in un buffer, e dopo averli processati li inoltra sulla base di una tablella di routing, può operare in
+   - store and forward ::  memorizza il pacchetto e lo inoltra
+   - cut through :: inoltra i pacchetti anche senza la loro completa ricezione
+ - gateway :: sinomimo di router, ma per livelli sopra la rete, tipo trasporto o appliczione
+   trasporta i pacchetti oltre la rete locale
+
+* Wifi
+Wireless fidelity
+standard IEEE 802.11
+si occupa solo delle specifiche a livello fisico e MAC
+formata da una cella elementare detta BSS contentente uno o più BS (Base Station), questa coordina la rete.
+nella wlan la BS è nota come Access Point (AP)
+
+** MAC
+livello mac comune a tutte le alternative disponibili per il livello fisso,
+basato su CSMA CA[fn::collisoin avoidance], introdotta per la rete wireless
+csma ca si basa sulla rilevazione di portante con l'aggiunta funzionalità di prevenire le collisoini
+l'accesso al canale prevede che vi sia un ritardo detto ifs per l'invio del frame anche a canale libero
+per ridurre l'intervallo di vulnerabilità del l'ifs è diviso in
+ - sifs :: fisso
+ - aifs :: per dare priorità ai canali sensibili ai ritardi (es canali audio)
+ - difs :: tempo di attesa di terminale una volta trovato il canale libero, ma prima di mandare un pacchetto
+ - aifs :: per traffico a priorità più bassa, di "background"
+ - eifs :: tempo di attesa rima che un terminale notifichi gli altri se riceve un frame divettoso
+l'ordine degli intervalli stabilisce una priorità per l'accesso al canale
+
+per accedere al canale si può fare
+ - alla cazzo di cane :: con *dcf*, se il canale è libero il terminale fa partire un contatore a decremento inizializzato a difs, quando il tempo scade, se è ancora libero, il terminale trasmette e resta in attesa dell'ack per un tempo sifs.
+   se non si riceve si assume collisione virtuale e si gestisce la collisione, stato di contesa.
+   entrati in contesa si prende una finestra di tempo, si sceglie in modo uniforme, e in pratica aloha
+
+   la csma ca presenta alcune criticità come il
+
+   
+     
+   
+   
+   
+   

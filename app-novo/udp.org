@@ -1,0 +1,19 @@
+* UDP
+#+begin_quote
+User Datagram Protocol
+#+end_quote
+senza connessione e inaffidabile
+tutti i pacchetti UDP sono indipendenti gli uni dagli altri
+ogni datagramma per se', vanno nella rete come cazzo gli pare, se poi arrivano in ordine diverso a come gli hai mandati, chi cazzo se ne frega.
+
+è utilizzato, per lavori che non richiedono ne' affidatezza della ricezoine ne' ordinamento dei datagrammi.
+richiede poca roba tra mittente e destinatario
+utilizzato per applicazioni che non richiedono grosse interazioni client server e per cui tutta la parte di correttezza, ordinameto +, e non essere un pirla+ non serve
+
+** Header
+visto che non correggi un cazzo e non ordini un cazzo, non hai un cazzo di metadati
+
+ - numero porta sorgente :: 16 bit
+ - numero porta destinatario :: 16 bit
+ - lunghezza :: 16 bit, descrive la lunghezza del payload
+ - checksum :: 16 bit

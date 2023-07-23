@@ -1,0 +1,120 @@
+* Giorno 19
+** Primo
+*** Strutture T-S condizioni di blocco
+*** Wi-Max in generale, classi di servizio
+*** tecniche gestione della congestione
+**** Token Bucket
+
+** Secondo
+*** CSMA/CD
+*** dispositivi per connessine lan
+**** Hub
+**** Switch
+*** SDH
+
+** Terzo
+*** Polling
+*** SSN7
+*** Flooding
+
+** Quarto
+*** Aloha
+**** Gestione collisioni
+*** ADSL
+
+** Quinto
+*** CSMA/CA
+**** problema del terminale nascosto
+*** circuito virtuale
+**** diagramma
+*** gossiping
+*** ISO/OSI
+
+** Sesto
+*** Formula di clos
+**** ipotesi per dimostrazione del costo
+*** tecnica FDDI
+**** gestione accesso (TTRT, TRT) e THT
+*** sliding window + grafico della rete
+
+** Settimo
+*** formula di Lee
+*** DQDB
+**** problema del vantattio dei nodi vicini alla generazione della trama di prenotazione
+*** distance vector
+**** problematiche
+***** infinito finito
+***** split horizon
+
+* Giorno 20
+** Ottavo
+(questo ha preso 30)
+*** Strutture T-S, condizioni di blocco
+*** Tecnica ATM
+*** Fare un esempio di scambio tabelle distance vector
+**** Come succede l'aggiornameto, quando B riceve la tabella da a, cosa fa B?
+
+** Nono
+(questo ha preso 26)
+*** Architettura reti TCP/IP
+**** Domanda di riserva, commutazione di pacchetto
+*** Tecnica CSMA
+*** Tecnica di instradamento flooding
+**** come si fa per evitare il ritardo dei pacchetti?
+
+** Decimo
+(questo ha preso 18)[fn::cazzo ce ne vuole[fn::a gufarmela così]]
+*** Tecniche FDDI
+**** di riserva: Architettura protocollare TCP/IP
+***** di riserva Alternative alla TCP
+****** di riserva: Protocollo Aloha
+
+** Undicesimo
+(questo ha preso 23)
+*** Formula di Lee, come si ricava per il caso S-S-S
+*** Protocollo DQDB
+**** Come si evitano le problematiche
+**** Come si evita che uno prenda tutto
+
+** Dodicesimo
+(questo ha preso 30)
+*** Formula di Clos per strutture T-S-T
+**** Come valutoil costo complessivo?
+**** Quanto costa un blocco S
+*** Architettura reti SDH
+**** Come si chiama la distanza tra due componenti?
+sezione
+*** Metodo Sliding Window + grafico del rate
+
+** Tredicesimo
+(questo ha preso 30)
+*** Reti FDDI
+**** come viene definita l'efficienza
+***** Qual'è il valore massimo?
+*** Problema del terminale nascosto
+**** Come si concretizza il meccanismo di risoluzione dei conflitti?
+**** B può ritrasmettere ad A o deve rifare tutta la procedura di setup?
+**** Qual'è lo svantaggio di poterlo rifare?
+**** C'è un rimedio
+*** Problema del terminale esposto
+**** C'è un rimedio
+*** Reti di sensori: cos'è lo spin?
+
+* Nota dell'autore
+gli esami Terzo, Quarto, Quinto, Nono, e Decimo sono stati sostenuti da studenti stranieri in erasmus
+
+* Altre domande
+** All'autore
+*** Formula di clos
+*** Algoritmo RSA
+*** Leaky Bucket
+*** Differenza tra PCF e DCF
+
+** Altre Altre
+*** Reti geografice
+*** Wimax
+*** La rollcall
+*** Algoritmo di Routing
+**** Quello con la tabella (il primo negli appunti di gullo)
+
+

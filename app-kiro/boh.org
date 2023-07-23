@@ -1,0 +1,35 @@
+fottuto da
+https://studiconme.wordpress.com/2010/12/29/l%e2%80%99architettura-di-una-rete-di-connessione/
+* Bloccante
+una rete di connessione si dice non bloccante dal punto di vista della strutura se considerate le richieste di connessione in ingresso non in conflitto fra di lofo (vale a dire, rivolte a linee di uscita diverse), allora la rete sarà capace di realizzare l'operazione di comunicazine se sono disponibili linee in uscita.
+
+la struttura si dice bloccante quando non è non bloccante
+
+* TDM / TSI
+ - tdm :: time division multiplexing
+ - tsi :: time slot interchanger
+
+je ne sais pas une cazz
+l'operazione principale che compie è quella di scazzare in uno stesso canale, le trame (non cambia la linea)
+
+sono delle memorie a lettura/scrittura
+
+il tempo (standard and company) di una trama è di \(125 \mu s\)
+
+** Funzionamento
+prima fa la scrittura della memoria, poi fa la lettura della stessa memoria
+la cosa può andare in due modi diversi
+
+*** Scrittura Sequenziale e Lettura Casuale
+la permutazione si implementa in uscita, infatti la casualità della lettura è definita da segnali che provengono dall'unità centrale
+
+qui lo scazzo è fatto in lettura
+vengono scritti nell'ordine con cui arrivano uno dopo l'altro
+poi per quanto riguarda l'uscita, vengono fatti uscire nell'ordine che vuole l'unità di controllo, quindi qui lettura casuale, quindi permutante
+
+*** Scrittura Casuale e Lettura Sequenziale
+qui è dueale, la permutazione avviene quindi in ingresso, come prima la casualità della lettura(mi sa intendeva scrittura no?) è dettata da segnali dell'unità centrale 
+
+vale a dire, lo scazzo è fatto in scrittura, che scrive i sengali nell'ordine in cui vuole farli uscire (dettato dall'unità di controllo), poi vegono letti già permutati in uscita, che sarà quindi sequenziale per mantnere quell'ordine.
+
+

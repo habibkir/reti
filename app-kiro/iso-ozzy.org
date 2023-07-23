@@ -1,0 +1,74 @@
+* Reti geografiche, livello fisico
+** SDH
+Synchronous Digital Heirerarchy, è un protocollo di livello fisico utilizzato per la trasmissione telefonica e di dati in rete geografiche (quindi wan), cioè reti di trasporto, il suo compito consiste nell'aggregare flussi di dati a bitrate diversi e ritrasmetterli insieme su grandi distanze.
+Consente di raggiugere elevati livelli di qualità e notevoli strumentazioni per il controllo
+
+*** Dispositivi SDH
+ - mux/demux ::
+   servono ad aggregare e disaggregare i flussi di dati singoli, sono tipicamente presenti all'inizio e alla fine di una via di collegamento
+   [fn::entry node ed exit node bois]
+ - repeater :: operano direttamente sul segnale per rigenerarlo in potenza, richiesti per poter coprire distanze maggiori senza che il segnale degenri
+ - add/drop multiplexer :: sono presenti nei nodi di transito in una rete SDH, consentono di inserire (aggregare) o estrarre (disaggregare) flussi di dati in un collegamento
+
+*** Trama base SDH
+questa viene individuata con la sigla STM-1
+L'elemento base è il gruppo da 8 bit, della dimensione quindi di un byte
+9 righe \times 270 colonne \times 8 bit.
+il periodo di ripetizione della tramam è di \(125 \mu s\)  (il valrore è fisso, valido anche per trame di ordine gerarchico superiore)
+la rete di riferimento.
+
+il bitrate informativo è quindi
+\[ \frac{270 \times 9 \times 8 bitrate}{125 \times 10 ^{-6}} = 155.32 Mbps \]
+sui \(155 Mbps\), abbastanza roba
+
+sono previsti tre formati diversi per la segnalazione
+
+* Livello di collegamento
+nello standard iso osi ci si riverisce al protocollo HLDC (high level datal link control)
+nelle varie versioni semplificate e specifiche per architetture di rete
+per quanto riguarda la struttura della tramam si può fare riferimento a quella vista per l'x52
+
+io non ci ho capito un cazzo di cosa ha appena detto qusto qui
+cazzo finisco sti appunti e vedo subito degli altri appunti che altrimenti eeeeee
+
+* Livello Rete
+la sua funzione principale è la gestione dell'instradamento, quindi il routing
+questo comporta al definizione di adeguati algoritmi per il routing
+
+i criteri di valutazione e confronto tra questi sono
+ - semplicità relaizzativa
+ - robustezza
+ - stabilità
+ - et al
+
+** Algoritmi di ruoting   
+*** Classificazione
+presentano una tabella
+qui la tabella è un nodo di registri in memoria, per ogni richesta di instradamento quale linea di uscita deve essere insteressata
+
+senza tabella non si possono prevedere abbinamenti ingresso uscita predefiniti, saranno quindi ti tipo reattivo, cioè attuati solo su richesta
+
+**** Classificazione operativa
+ - versione centralizzata :: solo t abella e un'unità di elaborazione centralizzata
+ - versione distribuita :: prevede l'esecuzione dell'algoritmo in modo distribuito detto anche cooperativa, anche qui si prevedono tabelle
+ - versione isolata :: tipicamente volta ad essere realizzata senza tabella, prevedono l'esecuzione in locale, stand alone, isolata, dell'algoritmo
+
+*** Algoritmo senza tabella
+**** Alla cazzo di cane
+tecnica semplice e isolata, performance di solito non propio il massimo
+
+**** Flooding
+inoltra il pacchetto in ingresso verso tutte le linee di uscita ad eccezione di quella da cui priviene, è robusto e va a interessare sicuramente il percorso migliore, la sua robustessa lo rende adatto ad applicazioni militari e safe critical (è una cazzo di bfs che ci ha provato poco)
+
+**** Source Routing
+il percorso che devono seguire i pacchetti si trova a livello 3
+vi è un *path server*, il percorso per i flussi di dati è inviato dal server centrale
+ - path discovery :: (gestita dal nodo), è una procedura di scoperta gestita dal nodo e tiene conto dell'effettivo stato della rete, prevede una fase di scoperta gestita con modalità +breadth first+ flooding
+
+a** Algoritmo con tabella
+questi possono essere di tipo centralizzato o distrbuiti
+**** Link State
+ogni nodo dispone di una tabella che associa ad ogni possiibile destinazione in percorso un =next-hop=, specifica di un nodo vicino.
+nella stessa tabella è specifcato il "costo" del percorso
+
+

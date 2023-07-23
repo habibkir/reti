@@ -1,0 +1,67 @@
+* Primo
+ - clos
+ - lee
+ - frammentazione con particolare riferimento al fragmento offset che è un puntatore al primo pacchetto e gli altri pacchetti sono successivi
+   (la parte dell'indice l'ha detta a lezione e non sul libro)
+ - bridge
+ - three way handshake
+ - fddi (fiber distributed data interface)
+ - dhcp (dynamic host configuration protocol)
+   come vengono assegnati gli ip nel dhcp, sul libro spiega poca roba, ha messo ha aggiuto cose a lezione e vuole che si sappiano quelle cose extra[fn::eh un po' stronzo lo sei, romano], vuole la procedura precisa
+ - condizioni di bloccantaggine per le ST e TS
+ - poche volte anche la T
+* Secondo
+** 1° persona:
+ - Formula di clos 
+ - Campo fragment offset ipv4
+ - Token bucket (incerto un pochino)
+Voto: 25
+** 2° persona
+ - Strutture di commutazione TS quando sono bloccanti.
+ - Procedura DHCP e la comunicazione che avviene per ottenere un indirizzo IP. (Non sapeva la come ottenere l’IP)
+ - TCP, three way handshake. (Non sapeva three way handshake)
+Voto: 23
+** 3° persona:
+ - DQDB (non sapeva l’interconnessione tra i contatori Add/drop, drop.)
+ - Tecnica xDSL
+ - Tecnica SPIN (non ho sentito se ha risposto o no)
+Voto: 23
+** 4° persona:
+ - Tecnica SPIN (quello prima non aveva risposto)
+ - SD
+ - Reverse Path Forwarding
+Voto: 30 (sapeva tutto)
+** 5° persona:
+ - Analisi di Lee e come si fa a verificare che è approssimata
+ - NAT
+ - Routing senza tabella
+Voto: 25 (incerto su alcune cose)
+** 6° persona:
+ - FDDI
+ - Bridge
+ - Routing generalizzato
+Voto: 30 e lode (sapeva tutto)
+** 7° persona:
+ - Tecniche di Polling + gated, esaustivo, legge di cambiamento del tempo nodo a nodo (definito su tempo di ciclo)
+ - Problema del conteggio all’infinito +split horizon
+Voto: 28
+** 8° persona:
+ - Tecnica Aloha 
+ - Direct Diffusion
+ - Tecnica MPLS
+Voto: Credici e lode
+** 9° persona: 
+ - Maschera di rete ipv4 
+ - Problema terminale nascosto
+ - Sliding windows
+Voto: BOH
+** 10° persona:
+ - Strutture SS
+ - Clustering
+ - Congestion Advoiance
+Voto: 28
+** 11° persona: 
+ - NAT di nuovo. (non la sapeva)
+ - Condizione bloccante del ST (sapeva ma era incerto)
+ - Sicurezza crittografia (sapeva bene)
+Voto: 22

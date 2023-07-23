@@ -1,0 +1,167 @@
+* Inizio inizio
+** Definizioni
+ - rete di telecomunicazioni ::
+   sistema complesso in grado di consientire su richiesta la comunicazione degli utenti della rete.
+   rete in mezzo a gente con cui la gente comunica.
+   rete di comunicazione, ma tele.
+ - commutazione :: operazione che consente di definire opportunamente un percorso sorgente-destinazione nell'ambito di una rete di telecomunicazioni.
+   (routing?)
+
+* Comunicazione
+** Tipi di comunicazione
+*** Mono/bi direzionali
+avendo due nodi si può stabilire una connessione di varii tipi, tra i quali
+ - simplex :: unidirezionale, si ha l'uso esclusivo del mezzo in una sola direzione, senso unico
+ - duplex :: bidirezionale alternata, si ha l'utilizzo esclusivo del canale, e si può alternare questo uso in una direzione o nell'altra, senso unico alternato
+ - full duplex :: pssono convivere flussi in una direzione e nell'altra, doppio senso.
+   bisogna garantire a livello fisico l'esistenza di questi due flussi, con fdm o tdm (frequency division multiplexing o time division multiplexing?).
+
+*** Rete
+interconnessione di varii nodi
+ - vantaggi :: condivisione delle risorse e collaborazione
+ - vantaggi :: gestione complessa
+
+*** Punti
+ - punto punto :: un nodo e il suo duale
+ - multi punto :: tanti punti
+
+** Topologia di rete
+*** A maglia
+dati \(n\) nodi, stabilisce un grafo completo con quegli \(n\) nodi ai vertici
+ - vantaggi :: connessione sempre diretta, distribuzione del traffico poco soggetta a congestione, molto ridondato quindi affidabilità elevata, se se ne rompe uno usi un'altra coppia come percorso
+ - svantaggi :: molto ma MOLTO costoso
+   per \(n\) nodi usi \(\frac{n(n-1)}{2} = O(n^2)\) collegamenti
+
+*** A stella/ HUB
+si ha un singolo supernodo noto come HUB
+ogni comunicazione deve passare per l'hub
+ - vantaggi :: ridotto costo di costruzione, complessità lineare degli archi
+ - svantaggi :: l'hub diventa un single point of failure (inoltre l'hub internamente sarà un puttanaio, hai solo spostato il problema a una definizione extra)
+*** A bus
+hai tutti i nodi attaccati a una grossa linea con cui comunicano tutti
+ - vantaggi :: farlo è una cazzata
+ - svantaggi :: percorsi molto lunghi tra certe coppie di nodi, attenuazione proporzionale alla lunghezza del bus, quindi al numero di nodi
+*** Ad anello
+invece di avere una linea aperta a cui colleghi tutto hai una linea chiusa a cui colleghi tutto
+ - vantaggi :: rigenerazione del segnale
+ - svantaggi :: l'anello diventa un single point of failure, su può fare una struttura a doppio anello, ridondando quindi il canale di comunicazione
+
+* Classificazione geografica
+** Internet
+insieme di reti interconnesse, queste linee possono essere
+ - LAN :: local area network, sulla scala di un singolo edificio/ufficio
+ - WAN :: wide area network una regione/nazione
+ - MAN :: metropolitan area network, dimensioni intermedie, sulla scala di una città
+
+** Rete telefonica
+ha una struttura gerarchica, la comunicazione tra nodi di pari livello non è sempre concessa, e si gioca di più sul salire/scendere del livello nella gerachia
+la rete si suddivide in "piani"
+
+ - CN :: Centro Nazinale
+ - CC :: Centro di Compartimento
+ - CD :: Centro di Distretto
+ - CS :: Centro di Settore
+ - CRU :: Centro di Rete Urbana
+
+si cerca di completare la ricerca al nodo più basso possibile, se i due "terminali" sono coperti dallo stesso centro di settore allora è uno spreco portare la comunicazione fino al centro nazionale, arrivati al centro di settore si può iniziare a scendere l'albero
+
+*** Telefonia Analogica
+ - Telefono, CRU, doppino di rame con banda a \(4Khz\) (voce umana)
+ - CS :: i varii flussi sono multiplexati in frequenza (FDM) e passati per un cavo coassiale
+ - CN :: qui si passa alla fibra ottica
+ - alla *ricezione* si effettua un demultiplezing con un filtro passa banda, seguito da un modulatore (per riportare il range \((base - 4Khz, base + 4Khz)\) a \((-4Khz, 4Khz)\)), e si riottiene \(\pm\) il segnale originale
+
+**** Multiplexing FDM (frequency division multiplexing)
+il canale ha una banda più larga di \(4Khz\), quidi si divide in "fette" da \(4Khz\) ognuna delle quali porta un sengale, all'arrivo queste fette possono essere separate nei vari sengali di ingresso e mandate a chi vuoi tu.
+***** In Fantacciese
+si ripartisce la banda disponibile del canale tra le sorgenti evitando sovrapposizione, il sengnale viene costruito traslando lo spettro di ogni sorgente per entrare nella fascia a questa assegnata, gli intervalli sono disgiunti e contigui.
+
+lo standard =CCIITT= dice di avere un gruppo che può portare
+ - gruppo :: 12 canali
+ - super gruppo :: 60 canali
+ - master gruppo :: 300 canali
+ 
+*** Telefonia numerica
+digitalizzi tutto e Shannon è contento
+stiamo già partendo da una banda che non supera[fn::in teoria] i \(4Khz\), quindi col teorema di Shannon/ del campionamento si fa on campione ogni \(T=\frac{1}{2f_m}\) (qui \(f_m = 4Khz\)), poi lo quantizzo, cercando di ridurre l'errore di quantizzazione, e ora ho un segnale digitale, in questo caso di 8 bit[fn::audiofili PUPPATE]
+
+**** TDM, time division multiplexing
+
+ 
+* Auto Commutazione
+la commutaizione è l'operazione che consente nell'albmito di una rete di definire la connessione tra nodi diversi, è eseguita da un *commutatiore*, inizialmente era più elettromagnetico, ora è elettronico
+
+** Commutatore
+la struttora di un commmutatore prevede
+ - terminali di *ingresso* e di *uscita*
+ - un unità di *controllo*
+ - una *rete* di *connessione*
+
+*** Blocco d'ingresso
+vengono estratte le richeste di connessione, se la linea 1 vuole chiamare la linea 100 viene fatta una seglalazione tramite canali di servizio all'unità di controllo
+
+*** Unità di controllo
+elaboratore (intelligenza della sruttura)
+solitamente software, elabora la richiesta di connessione arrivata e la trasferisce alla rete di connessione, ricostruisce poi la segnalazione e la manda al blocco out, fa da "cervello" della rete di connessione, che usa per mandare gli in in out e boh.
+Infine comunica alla rete di connessione quando chiudere la connessione/comunicazoine (quidi fa anche da deallocatore, bravo bambino)
+
+** Mansioni di un auto commutatore
+un auto commutatore deve
+ - instanziare un collegamento tra ingresso e uscita alla nascita/inizio della comunicazione
+ - sovraintendere, e quindi gesitre, sto collegamento
+ - resettare lo stato della rete alla fine della comunicazione
+
+quindi deve fare da
+ - constructor
+ - manager
+ - destructor
+della comunicazione all'interno della rete di connessione
+
+ci sono due tecniche di realizzazione di reti di connessione
+ - reti divise nel tempo (per cominicazioni numeriche)
+ - reti divise nello spazio (per cominicazioni analogiche e numeriche)
+
+*** Strutture a divisione di spazio, S
+Disposizione a matrice dei collegamenti, richiede di stabilire una connettività elettrica tra ingresso e uscita, stile ROM
+inizialmente fatta con relè, si è passati poi all'elettronica
+
+i collegamenti devono rimanere chiusi per tutto il tempo necessario alla sorgente per mandare tutta la roba.
+vengono belli chiusi e ripristinati alla fine della connessione
+
+l'utilizzo di transistor bjt (che qui alta potenza) come sostituto ai relè ha permesso di adattare questa struttura alla telefonica numerica
+
+la struttura è quindi adatta sia alla telefonica numerica che a quella analogica
+
+ - analogica :: effettivamente continuq
+ - numerica :: sembra continua ma si apre e chiude ogni volta per mandare gli 8 bit di sengale e poi sticazzi
+
+   
+**** Struttra non bloccante
+una rete di comunicazione si dice non bloccantequando è sempre possibile ammettere una linea di ingresso ad una qualsiasi uscita libera, le strutture a divisione di spazio sono non bloccanti
+(vale a dire, l'usicta libera non richiede di mutexare altri se non se stessi, e non mutexiamo le entrate? Abe' quelle sono i richiedenti non le risorse)
+
+**** Costo della divisione di spazio
+per convenzione per calcolare il costo di una rete S si parte dal nuemro di connessioni complessivamente possibli.
+con \(n\) ingressi e \(m\) uscite il costo sarà pari a \(n \cdot m\)
+
+ - cambio di linea :: per quanto riguarda la telefonia numerica delle strutture S, il canale all'interno della trama rimane nella stessa poisizione della traman quando esce, è possibile spostare l'intera trama da una certa linea in ingresso ad un'altra linea in uscita.
+
+(qui credo che con trama intenda boh, qualsiasi cosa venga usata come appoggio dalla linea, non credo intenda il collegamento fisico, ma non so come posizionarlo nel micro iso osi della rete)
+
+*** Strutture a divisione di tempo T
+ - TSI :: Time Slot Intechanger
+   
+qui è possibile un'operazione di permutazione degli slot nell'ambito di una stessa trama
+chiedo che il canale 3 in ingresso venga portato al canale 6 in uscita
+(come cazzo lo fa? col cazzo!)
+questa operazione non è possiblie per le strutture s visto che queste pososno solo cambiare la linea di un canale, ma non possono modificare la sua posizione nella trama [fn::k quindi una trama sarebbe tipo un cavo paralleloso, tipo 5 cavi paralleli, e per collegare ingresso a uscita attacchi cavo 5 a cavo 5, quindi il collegamento porterà necessariamente il sottocavo 1 al sottocavo 1, sottocavo 2 al sottocavo 2 etc...] [fn::mentre con quella divisa nel tempo la copresenza di messaggi in una stessa trama è meno rigida perchè meno materiale? più a livello di informazoine, quindi puoi scazzarli come bit senza bisogno di scazzare con i cavi?]
+
+nella struttura T, che si usa solo nella telefonia numerica...
+dal punto di vista strutturale le strutture T sono memorie che vengono lette e scritte
+
+**** Realizzazione della commutazione nella rete T
+ - scrittura senquenziale, lettura casuale ::
+ - scrittura casuale, lettura sequenziale ::
+
+*** Strutture Multi Stadio
+

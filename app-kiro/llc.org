@@ -1,0 +1,27 @@
+* Livello LLC (Logical Link Control)
+Comporta verso lo strato di rete le funzionalità del livello MAC
+si divide in tre tipi di funzionalità
+ 1. *servizio connection less senza riscontro* tipico servizio a datagramma, mandi pacchetti alla cazzo e ti va bene
+ 2. *servizio connection less con riscontro* mandi pacchetti alla cazzo ma almeno ti fai mandare la ricevuta
+ 3. *servizio connection oriented* la ricevuta non è abbastanza sofisticata quindi abemus /TRE FASI/
+    1. costruizione/individuazione del cammino (setup)
+    2. controllo durante l'utilizzo
+    3. rilascio dopo l'utilizzo
+
+ci sono degli standard ISO per
+ - LLC
+ - CSMA/CD
+ - TOKEN BUS
+ - TOKEN RING
+ - DQDB
+
+lo standard LLC prevede protocolli di compatibilità con iso osi
+si ha una testata con
+- DR :: 1 byte, identifica il destinatario
+- SA :: identifica il mittente
+- Control :: 1-2 byte serve per specificare il tipo di trasmissione, la numerazione del frame, e se fare lo scontrino (riscontro)
+   
+
+    
+
+

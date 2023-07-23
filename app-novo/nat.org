@@ -1,0 +1,69 @@
+* Porchè
+ben presto con l'aumentare dei dispositivi gli indirizzi scarseggiavano
+quindi venne introdotto il =NAT=, o =Network Address Translation=
+lo scopo principale del =NAT= era arginare il fatto che 32 bit non erano abbastanza
+almeno fin quando non si sarebbe tutti andati di ipv6
+
+il nat non era visto di buon occio dai "puristi" degli strati tcp ip
+visto che viola la trasparenza della connessione end to end e il fatto che i pacchetti non vadano modificati.
+
+* Com'è
+con il nat si possono avere motli indirizzi privati in una sottorete che usa pochi indirizzi ip
+
+la connessione tra la rete privata e la rete nat è fatta da un ruter con un sofruer nat
+quando i pacchetti (in uscita?) attraversano il ruter questo sostituisce l'indirizzo sorgente (che è un indirizzo privato della rete) con il proprio indirizzo pubblico
+quando i pacchetti arrivano al ruter, questo sostituisce l'indirizzo di destinazione (che è il suo indirizzo pubblico) con l'indirizzo privato del vero destinatario.
+
+** Funzionamento
+in ricezione il nat effettua il cambio di indirizzo destinazione pubblico/privato con una tabella di traduzione.
+
+nella sua forma più semplice questa tabella ha solo due colonne
+| indirizzo privato del mittente | indirizzo di destinazione |
+|--------------------------------+---------------------------|
+|                                |                           |
+
+quando un pacchetto passa dal ruter, il ruter, oltre a modificare l'indirizzo pubblico di sorgente, si segna che quell'indirizzo privato di mittente sta parlando con quell'indirizzo pubblico esterno
+
+*** Problemi
+**** Problema 1
+si nota che questo funziona solo se quello nella rete privata è quello che comincia, se gianpiero l'esterno vuole mandare una messaggio a luigi l'interno ok, mette come indirizzo pubblico quello del router, e mo'? il router cazzo fa a sapere che la mail è per luigi?
+
+***** Soluzione del cazzo
+la risposta è facile, non può.
+all'interno della rete nat possono starci solo client, niente server, niente che gli comincia la sessione con lui che riceve, possono solo partire mandando.
+
+**** Problema 2
+giancarlo, il sensore interno alla rete e gianbologna, l'altro sensore interno alla rete, devono entrambi mandare a michelangelo, il nat si segna che giancarlo parla con michelangelo, e che gianbologna parla con michelangelo, ok.
+
+il nat riceve un messaggio da michelangelo, e mo? Lo manda a giancarlo o a gianbologna?
+
+***** Soluzione tanto del cazzo
+una mezza soluzione sarebbe avere più indirizzi ip, metti ne fo 3, così \(\forall\) michelangelo, posso avere 3 tizii che mandano allo stesso michelangelo
+
+ - motivo per cui non funziona 1 :: ho appena risolto la mancanza di indirizzi ip (del nat) dovendo usare altri indirizzi ip
+   ma vatte a fare in culo, vatte
+ - motivo per cui non funziona 2 :: io adesso voglio una rete di sensori industriale che mandano tutti allo stesso server interno per processare sti cazzo di dati, applicazioni non rarissime, e con cui quest'approccio scala che manco escher
+
+***** Soluzione un po' meno del cazzo
+oltre all'ip si può anche utilizzare il *numero di porta*
+il numero di porta è un concetto a livello di trasporto utilizzato per identificare il processo di destinazione.
+ad esempio un web server tipo apache o nginx di solito riceve sulla porta 80
+le mail (smtp) di standard arrivano sulla porta ...
+il numero di porta identifica il tipo di traffico
+
+la porta sorgente viene assegnata alla cazzo e serve solo come id, questa viene detta /effimero/
+la porta dei processi di desitnazione, visto che è un dato effettivamente importante, è detta, va conoscuita, e si chiamano /porte ben note/
+
+quindi, con tutto questo ambaradan, i pacchetti che passano per il ruter saranno identificati con
+ - ip sorgente
+ - ip destinazione
+ - porta sorgente
+ - porta destinazione
+
+quindi, ora la porta sorgente porta informazioni extra
+nel tcp ci sono 16 bit per la porta, quindi \(2^{16}=65536\) possibili porte
+e se si identifica il dispositivo interno con la porta utilizzata, avremo quindi 655... possibili indirizzamenti univoci/possibili dispositivi all'interno della rete
+
+l'insieme ip e porta di rete identifica un SOCKET
+
+

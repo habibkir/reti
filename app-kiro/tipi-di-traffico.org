@@ -1,0 +1,104 @@
+* Classificazoine del traffico
+ - Traffico asincrono :: flusso intermittente senza periodicità precisa
+ - Traffico Isocrono :: flusso con caratteristiche stringenti di periodicità, quindi con cadenze temporali fisse
+ - Traffico Sincrono :: non isocrono ma con carattaristiche di continuità su intervalli di tempo
+
+** Reti in standard DQDB (Distributed Queue Dual Bus)
+sono reti ad accesso ordinato
+reti di trasmissione per bus, di solito per standard sui \(150 mb/s\). In ogni bus è presente una struttura a trama temporale (TDM)
+
+bit A, l'accesso (1 se prenotato l'accesso, 0 se accesso non prenotato)
+ogni stazione ha un orologio e tutti gli ordini di tutte le stazioni sono sincroni, così da sapere quando si presentano gli istanti di accesso, La trasmissione è vincolata al senso di percorrenza del bus e alla posizione relativa da raggiungere.
+
+struttura di un nodo" 2 strutture duali ciascuna preposta a gestire la trasmissione.
+
+ 1) Contatore *add/drop*, incrementa di 1 il suo contenuto tutte le volte che osserva nel bus inferiore uno slot con il campo di prenotazione settato, decrementa di 1 il suo valore tutte le volte che osserva nel bus superiore uno slot con il campo di prenotazione settat a 0
+ 2) Contatore *drop*, viene decrementato ogni volta che nel bus di trasmissione spassa uno slot utilizzabile, serve a capire quando è il turno per l'accesso
+ 3) *buffer*, memorizza i dati in attesa della trasmissione.
+
+* Ethernet
+ - la modalità di accesso :: è casuale basata sul metodo di rilevazione della portante
+
+** Gestione dell'ascolto
+*** Persistent
+si ascolta il canale finquando questo non viene riconoscuito come libero
+**** Vantaggi
+se ho pochi utenti riduco i tempi di accesso in confronto a quanto farei con altri metodi quando il canale viene rilevato occupato al primo ascolto
+**** Svantaggi
+se almeno due nodi entrano il ascolto durante la stessa fase di utilizzo si ha una collisione
+*** Non Persistent
+interpreta la rilevazione del canale occupato come una "collisione virtuale"
+di conseguentza entra nello stato di ritrasmissione (quello con la distribuzione alla massima cazzo di cane)
+**** Osservazione[fn::l'ho letto e ho pensato subito al Vezzosi, sto male]
+funziona bene quando il numero di utenti è abbastanza alto da rendere plausibile l'ipotesi di una collisione virtuale
+*** P Persistent
+caso intermedio tra i due precedenti (il terzo gode?)
+Ascolta il canale in modo persiste ma accedo quando possibile con probabilità p, anche quando dovessi rilevare subito il canale libero.
+Quindi fa la ritrasmissione anche senza vedere una collisione virtuale.
+Figlio di puttana.
+
+** Gestione delle collisioni
+si utilizza la procedura classica che prevede di individuare mediante un criterio statistico (l'uniforme) il nuovo istante in corrispondenza del quale provare a rifare l'accesso.
+se il sistema avesse ritardi di propagazione nulli allora questa tecnica sarebbe ideale, ma il mondo è imperfetto, le mucche non sono sferiche, e le reti sono ritardate, che famo?
+Questo significa che i protocolli CSMA sono efficienti quando il tempo di propagazione è piccolo rispetto al tempo di pacchetto, un valore piccolo del tempo di propagazione ricude l'intervallo di vulnerabilità in cui niente è definito e tutto può morire.
+riduce inoltre il tempo sprecato in una collisione
+lo standard IEEE per le reti ehternet prevede nel livello MAC l'utilizzo di CSMA/CD (collision detection)
+
+*** Tecnica segreta del non essere un pirla
+ascolta prima di parlare, e mentre parli
+invece di ascoltare il canale alla fine della trasmissione lo ascolta anche durante la trasmissione, se avviene una collisione questa viene rilevata e terminata. facendo così si risparmia potenza e si riduce il tempo di inutilizzo del canale.
+
+
+* Rete wireless
+in questa rete i terminali non sono connessi via cavo ma si usa l'etere, non l'ehternet, l'etere.
+questa consente una maggiore mobilità degli utenti.
+una rete wlan, vale a dire una wireless lan, è una lan che prevede l'accesso solo per via radio.
+
+prevede l'utilizzo di access point. non sono concesse comunicazioni dirette tra utenti, niente walkie talkie, è una struttura centralizzata.
+
+** Modalità di connessione
+*** Ad hoc
+i terminali possono comunicare tra di loro, la struttura non è centralizzata
+i terminali possono cooperare, le cominicazioni dirette sono spesso indicate come comunicazioni peer to peer
+*** Roaming
+modello infrastruttura
+un terminale può cambiare access point, questo muovimento deve mantenere la connessione.
+
+** Proprietà della rete wireless
+*** Nomadicità
+l'applicazione rimane aperta ma non attiva durante il cambio di cella, oppure
+*** Handover
+procedura di solito pilotata a livello hardware, consente di trasferire la gestione di una comunicazione da un access point ad un access point adiacdente
+l'eventuale applicazione rimane attiva (ad esempio un'applicazinoe voip su wlan)
+quando si attiva nell'area di sovrapposizione si presume che il segnale che riceve dall'access point 1 cedaca e il terminale inizi a ricevere dall'access point 2
+durante la fase di sovrapposizione il terminale inizia le operazioni di accreditamento verso l'access point 2.
+è necessario che avvenga nell'intersezione tra i due access point visto che bisogna mandare e ricevere segnali da/a entrambi gli access point per fare questa cosa.
+
+** U SWOT M8
+l'analisi swot è quella sui punti forza
+(cazzo sembra di star facendo ragioneria)
+POTENZA BOI
+ - connessione dappertuttosa muoviosa
+ - riduzoine dei costi, alemno per i cavi
+ - maggiore facilità a portare la rete in giro
+ - tecnologia matura e standardizzata
+
+DEBOLEZZA BOI
+ - banda minre rispetto alle reti cablate, se giochi online col wifi ti picchiano, specie su street fighter
+ - banda condivisa
+ - maggiore sensibilità al rumore circostante
+
+OPPORTUNITATES
+ - disponibilità di applicazioni
+ - accessibilità di costo dovuta alla diffuzione su larga scala
+ - possiblità di convergenza, vale a dire di integrare tra di loro reti diverse
+
+THREATS
+ - sicurezza minore, mandi la roba in aria, grazialcazzo che riesco a captarla
+
+anche per le wireless ci sono le wlan, wman, wwan...
+
+
+
+
+

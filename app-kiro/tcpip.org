@@ -1,0 +1,31 @@
+#+title: tcp ip
+
+derivate da arpanet
+* Architettura
+l'architettura del tcp ip ha quattro livelli
+ 1. Application
+ 2. Transport
+ 3. Internet (IP, Internet Protocol)
+ 4. Host-to-Network
+
+ 5. Host-to-Network :: non è propriemente un livello ,deve "solo" gestire/essere in grado di gestire l'inoltro dei pacchetti in reti diverse.
+ 6. Internet :: è un livello figo figo caratterizzante il tipo specifico di rete, gestisce le connessioni in maniera connection less, e poi anche il routing e il controllo della congestione.
+ 7. Transport :: il livello transport è all'incirca quello dell'iso osi, include
+    - TCP :: (Transmission Control Protocol), gestione di servizi connection oriented
+    - UDP :: (User Datagram Protocl), che gestisce il traffico +alla cazzo di cane+ a datagramma
+    - SCTP :: (System Control transmission protocol), supporto per applicazioni speciali (VOIP) (Cazzo è)
+
+visto che il livello IP gestisce le connessioni in modalità conenction less, nel caso che al livello trasporto si debba usare il tcp, che è conenction oriented, allora serve un accorgimento.
+Il nodo sorgente dota i pacchetti con un campo che indichi l'ordine di inoltro, e si usa un buffer per riordinarli, visto che altrimento la cosa non funziona
+
+* Reti locali
+caratterizzate dall'estensione geografica ridotta (locali, per l'appunto)
+hanno topologie semplificate atte ad ottimizzare l'errore (per quella scala)
+
+topologie tipiche sono tipo
+ - A Bus :: supporta l'invio broadcast
+ - Ad Anello :: vi è un verso di percorrenza dell'anello, supporta l'invio broadcast, per quanto sia una topologia distribuita vi sono comunque ruoli di privilegio
+ - A Atella :: ottimizzate per avere il minor numero di archi possibilie nella rete, ma data la natura eccessivmanete centralizzata è meno affidabile[fn::this post was made by monero gang]
+ - Ad Albero :: L'inoltro dell'informazione è vincolato a seconda di come siano disposti gli utenti nella rete/nell'albero
+   
+
