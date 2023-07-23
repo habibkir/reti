@@ -42,7 +42,7 @@ procedura di handshake (riscritta in C++ perchè i diagrammi di flusso mi fanno 
       this->wait_time(SIFS);
   }
 
-  Paccketto Terminale::ricevi_ack(Canale* c) {
+  Pacchetto Terminale::ricevi_ack(Canale* c) {
       this->manda_e_aspetta(c);
       return this->wait_for_package(c);
   }
@@ -67,7 +67,7 @@ procedura di handshake (riscritta in C++ perchè i diagrammi di flusso mi fanno 
       while(volte_che_non_mhanno_cagato < 15) {
           this->aspetta_alla_cazzo();
           this->manda_e_aspetta();
-          if(t->ricevi_ack() == Paccketto::due_di_picche) {
+          if(t->ricevi_ack() == Pacchetto::due_di_picche) {
               volte_che_non_mhanno_cagato ++;
           }
           else {
