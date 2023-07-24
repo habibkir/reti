@@ -1,0 +1,683 @@
+(ho provato a segnare anche le risposte date, ma provare ad ascoltare cosa dicono e scriverlo contemporaneamente è più difficile del previsto, quindi quanto riportato presenta buchi e male interpolazioni, visto che non so abbastanza sulla materia da riempire i buchi non compresi)
+(mi scuso per le battutine del cazzo)
+(e per il pdf formattato strano con le righe e la puteggiatura)
+* N
+** (roba che non ho segnato)
+** Ha chiesto l'FDDI da qualche parte
+** S-S-S
+ - struttura S-S-S ::
+ - analisi di clos per le strutture S-S-S ::
+   (si basa sullo studio del caso peggiore, si assume che ... occupati e occupati)
+ - dhcp ::
+   - cos'è
+   - a cosa serve
+   - come funziona ::
+     il client manda al server la richiesta...
+     il server che riceve la richiesta da al client l'indirizzo ip disponibile
+     il client sceglie tra gli indirizzi ip quello più vantaggioso in base a varii criteri
+     comunica la scelta dell'indirizzo al server
+     prima che tale indirizzo appartenga al client è necessaria una conferma finale da parte del server visto che mentre il client sceglie può essere che l'ip l'hanno preso altri
+
+** Come si fa a distinguere una sequenza da un'altra
+(numero di sequenza)
+
+** PLS
+una tacnica di routing che si basa su...
+si associa a più ... una stessa etichetta
+l'etichetta è associata al tipo di traffico e ... indirettamente al dispositivo
+
+** Differenza tra routing ... e routing PLS
+qualcosa proprio a livello formale che nel routing classico non è proprio possibile
+legata a come il PLS lavora, una particolarità che consente di implementare ...
+
+l'abbinamento sorgente destinazione ... è uno solo, nell'NPLS no apputno perchè ...
+
+ha preso 28
+
+* N + 1
+** Reti DQDB
+le reti dqdb (e disegna l'affare con due bus e tre contatori sulla lavagna)
+quando un nodo ... tutti gli altri nodi vengono ... attraverso ... un bus e l'altro bus ...
+
+*** mi fai vedere la struttura interna di un nodo?
+e come ...
+
+mi fai però lo schemettino che ...
+ok il traffico però l'architettura interna al nodo per gestirlo
+ - contatore add drop :: incrementa se p = 1, decrementa se p = 0, conta quanti nodi si sono già prenotati, quando un nodo vuole trasmettere il numero viene passato al drop, quindi è conensso al contatore drop
+ - contatore drop :: decrementa se s = 0 e conta quanti nodi hanno priorità rispetto a ...
+ - buffer ::
+
+durante il periodo di attesa questo qui che fa, si ferma oppure va a ...   
+io prenoto e trasferisco, in attesa che ...
+
+la domanda è semplicemente, durante il periodo di attesa, il contatore drop?
+continua a funzionare perchè si deve rispettare l'ordinamento temporale per rispettare la fila d'attesa
+
+*** Inconveniente
+è simpatica, è bellina, però ha un'incoveniente, apparentemente sembra ideale, rispetti sempre la priorità...
+però purtroppo c'è un problema, che sono privilegiati i nodi più vicini a...
+
+** Il bridge
+ - che cos'è
+ - come funziona
+ - cosa si intende con politica di autoapprendimento
+
+*** autoapprendimento
+se l'indirizzo che arriva ... non è già presente nella tabella questa viene aggiornata
+salva l'indirizzo su un buffer
+
+il bridge te lo metti e fa da se
+all'inizio la memoria è tutta vuota
+
+te nel pacchetto hai un campo sorgente e un campo destinazione, il bridge che fa? non conosce mica la rete, usa il campo sorgente perchè sai che lo ricevi da una porta e ...
+
+** Tecnica spin
+- cos'è
+- dove si usa
+- ...
+
+è una tecnica usata per routing datacenter basata su metadati, questa non è un'informazione completa è per l'apputno una descrizione
+uno manda... e pubblicizza il proprio metadato, quelli interessati mandano una richiesta e ... prenotano
+
+quello manda in broadcast e ...
+
+*** Qual'è il problema di questa tecnica?
+sembra proprio bellina però ha un inconveniente da sistemare
+non tutti i nodi vengono raggiunti dalla pubblicizzazoine, quindi?
+la conseguenza di questo? che può succedere? Che se nessuno di quelli vicni è interessato allora ...
+
+questo ha preso 27, è andato bene
+
+* N + 3
+(stampelle, potrebbe essersi limitato apposta da domande che richiedessero la lavagna)
+** Ci dimostri la formula di lee
+rispetto all'analisi di Clos vede il blocco come un evento aleatorio
+in questo caso una probabilità di blocco bassa viene accettata, accetta il fatto che possa esserci una condizione di blocco
+
+si chiama \(\alpha\) la probabilità con cui una rete può essere utilizzata ... \(\frac{1}{k}\) ... \(n\) dove \(n\) sarà il numero di linee in ingresso
+
+la probabilità che un'uscita boh sia occupata sarà \(\frac{n \times \alpha}{k}\)
+questa analisi non è però precisa, se si inserisce dentro questa formula l'analisi di clos si vede che non prevede una probabilità pari a \(0\)
+
+** Mi parli della frammentazione
+introdotta nell'ipv4
+prevede il fatto che un pacchetto venga diviso in più pacchetti, che vengono poi enumerati per permettere la ricostruizione del pacchetto
+
+se è connection oriented allora ...
+
+*** Mi dici quali campi del pacchetto sono utilizzati?
+qualcosa, quello più importante, che mi sono perso
+
+l'identification che rappresenta l'ordine di sequenza del... nel pacchetto e ...
+associa il frammento a un puntatore per poterlo poi
+
+c'è n'è poi un altro, son piuttosto banali, ma se uno non li dice
+tra i due uno è più importante dell'altro
+
+c'è un campo che dice se il frammento è l'ultimo della sequenza o no, per poterla finire
+e un campo che dice se il frammento può essere ulteriormente frammentato
+(ultimi due detti dal fantacci perchè non li sapeva)
+
+c'è un qualcosa che aumenta il ritardo rispetto a quello che potrebbe essere allineandosi in maniera rigorsa quello che hai detto te
+il ritardo che tutte le volte che si va a rifare la testata bisogna ricalcolare il checksum
+
+*** Nell'ipv6 come vengono risolti questi problemi?
+per avere un'elaborazione più veloce l'header dell'ipv6 è più piccolo
+nell'ipv6 la frammentazione c'è o non c'è? c'è, le reti sono sempre quelle
+però come viene implementata? Rispetto all'ipv4, in una manienra abbastanza semplice, viene stimata in una maniera end to end per determinare subito la dimensione massima di nodo e poi da lì si va a dritto
+(sempre detto dal fantacci perchè lui non lo sapeva)
+
+** Routing boradcast
+ci sono varii metodi per farlo
+una è avere tante connessioni unicast quanti i nodi della rete, ma bisognerebbe gestire gli stessi pacchetti molte volte
+si ha ... tutti gli indirizzi dei nodi della rete, un nodo, letto il pacchetto, lo manda a tutti i nodi associati e ...
+
+ok broadcast vuol dire tutti, tu stai descrivendo il multicast
+
+*** quali sono le tecniche di broadcast?
+ - flooding :: mandi a tutti i vicini salvo chi t'ha dato
+ - ... :: qualcos'altro ma solo se ... costo minimo
+
+ok qualche piccola incertezza, 28.
+
+* N + 4
+** parlami della tecnica aloha
+questo parla a voce troppo bassa perchè si capisca cosa sta dicendo
+*** con che criterio si sceglie un instante in cui trasmettere
+alla cazzo di cane, con probabilità uniforme per massimizzare la cazzo[fn::per diminuire la probabilità che due collidano de novo]
+(non lo sapeva)
+
+*** Ci sono due varianti, perchè lo slotted è meglio
+e cos'è che evita lo slotted che invece nell'aloha classico...
+diventa più piccolo, infatti qual'è l'evento che si esclude
+
+in questo modo cos'è che eviti che succeda, eviti che ..., visto che saranno tutti allineati se vinci in quel momento vinci sempre
+(non lo sapeva)
+
+** Il conteggi all'infinito, che cos'è
+il problema del conteggio all'infinito nasce quando si devono aggiornare le tabelle di routing con il meotodo di...
+(silezio abissale)
+con il metodo distance vector (detta dal fantacci)
+
+** Sicurezza a chiave pubblica
+L'RSA, l'RSA è figo
+*** come funziona dal punto di vista di procedura?
+proprio al livello di funzionamento a macrolivello
+
+se due entità A e B vogliono parlare tra di loro A deve prendere la chiave pubblica di B
+non l'algoritmo,
+(non basta conoscere la chiave pubblica non si riesce a decifrare il messaggio perchè servono anche infromazioni dalla chiave privata che ...)
+(anche questa non lo sapeva)
+
+* N + 5
+(comincia cancellando la lavagna, promettente)
+(parla molto in fretta, elevato package loss)
+** Problema del terminale esposto, e come viene risolto
+intanto siamo nell'ambito delle reti wireless
+il problema del terminale esposto è innanzitutto da ricondurre alla soluzoine del problema del terminale nascosto
+
+(diagramma eulero venn con i raggi di a, b, c, d)
+a parla con B e fa l'handshake
+il messaggio viene ricevuto da tutti i nodi nel raggio di A
+questo imposta tutti i valori di NAV nell raggio di A, quindi anche quello di B
+
+(inizia a non tornarmi la nomenclatura, sta confondendo un minimo B con C mi sa)
+(mette che A può dialogare con C)
+(ok corregge la nomenclatura)
+
+quindi D è il terminale esposto
+
+*** Ok, e come si risolve?
+una strategia più che per risolverlo è che per mitigarlo è il ... off
+una soluzoine alla radice cosa potrebbe essere? si è detto a lezione e sul libro
+non c'è una soluzione alla radice
+
+** Tecnica diffuzion boh
+usata nelle reti di sensori
+associa a ogni ... una coppia attributo valore
+trasmessa con tecnica flooding
+cosa viene inviato, spesso una lista di attributo valore
+
+inizia con manifestazione di interesse da parte del mittente
+poi ... gradient per ...
+raccolta dato da parte del sensore lungo il percorso scleto dal ... gradiente
+poi reinforcement, si usa per uno scopo ben preciso, non il rate della trasmissione, c'è una ragione molto pratica per cui il nodo sink fa reinforcement
+perchè in questo modo ne sceglie una tra tutte così gli altri non...
+
+** Sliding window
+tutto è architettato sulla base del numero di sequenza, anche per il numero di riscontro
+vado a definire una \(wl\) o /window lenght/, quanti pacchetti possono essere mandati di fila
+entro la finestra deve essere stato mandato il riscontro del primo pacchetto della finestra
+quando il riscontro del primo pacchetto avviene per tempo allora non siamo in uno stato di congestione
+quando non è per tempo siamo in uno stato di congestione, la finestra viene chiusa e sarà riaperta quando arriva il pacchetto
+
+ogni volta che ... si va ad aumentare di uno la lughezza della finestra, questo per testare la rete fino a quando non arriva una ... di congestione
+poi si prende un valore che è la metà esatta del valore che ha creato la congestione e poi si va nella fase di congestion avoidance
+(il fantacci c'ha na faccia mo' proprio)
+
+...
+si va a scegliere una lughezza della finestra di valore pari alla metà del... questo va bene, poi
+poi si va ad inviare i pacchetti, ma con che procedura, si riinizializza la finestra a 1, e quando si arriva al valore target determinato come metà del valore di congestione è lì che parte il meccanismo di congestion avoidance
+
+27, è andato bene
+
+* N + 5
+(mancato)
+
+* N + 6
+** Strutture di commutazione a divisione di tempo
+come sono fatte
+qual'è il costo
+...
+
+le strutture a commutazione a divisione di tempo, chiamate strutture \(T\), sono un tipo di struttura di commutazine, poi ci sono quelle \(S\)
+sono implementate con delle memorie
+sono utilizzate soltanto nella telefonia numerica e permettono la permutazione di canale
+in un tempo di trama, fissato per convenzione a \(125 \mu s\)
+questo poi va diviso per \(2n\), con \(n\) numero di trame, (visto che accesso sia in lettura che scrittura per ognuno)
+il tempo di \(125 \mu s\) è scelto perchè bla bla bla campionamento shannon
+
+ - scrittura casuale lettura sequenziale
+ - scruttura sequenziale lettura casuale
+
+(si usa /casuale/ perchè potrebbe essere qualsiasi ordine)
+
+** Congestion Avoidance
+è una tecnica reattiva della sliding window
+... quando si è a una dimensione matura della rete, a differenza dello slow start, invece di aumentare esponenzialmente la dimensione della finsestra (=std::vecotr= time)
+si va in maniera più prudente per ...
+
+*** che alternative si hanno?
+possiamo reiniziare con un altro slow start per ...
+
+** Conteggio all'infinito
+il conteggio all'infinito è un problema che si crea nell'algoritmo di distance vector quando un ... non esiste più tra due host
+l'host ...
+il collegamento tra \(B\) e \(C\) non esiste più
+ma \(A\), collegato a \(B\), e che usa \(B\) per arrivare a \(C\), manda a \(B\) il fatto che "hey ci arrivo con \(AB + BC\)", \(B\), che pensa quel valore non lo riguardi, se lo salva.
+poi quando rimanda il valore ad \(A\) allora \(A\) incrementa il suo costo per \(C\), lo rimana a \(B\), che poi lo manda ad \(A\) che incrementa il suo costo per \(C\), che al mercato mio padre comprò
+
+*** Soluzoini
+- infinito finito
+- split horizon
+- ...
+...
+quello non basta, ci vuole qualcosa di più a monte.
+si evita di mandare dei cammini che si sa saranno attivati partendo dal nodo a cui si vuole mandare...
+quidni qui \(A\) non manderà a \(B\) niente che riguardi \(C\), questo è un metodo, e l'altra
+
+questa tecnica apparentemente risolve tutto, ma c'è un inghippo per come in questa rete si gestisce l'aggiornamento
+
+può darsi che una rotta sia ancora considerata valida e ...
+
+se non c'ho nulla entro un tempo si assume che il nodo non faccia più parte della rete
+l'ultima variante cosa fa per risolvere questo problema? Il nodo manda ... per rinfrescare il collegamento e mantenerlo attivo
+
+30 vai
+
+* N + 7
+il veterano
+** Parlami delle tecniche ADSL
+le tecniche di adsl sono tecniche utilizzate per il trasferimento di dati di più tipologie
+ - ci sono quelle simmetriche :: tengono la stessa banda per upload e download
+ - ci sono quelle asimmetriche :: con una preferenza per il download, o per l'upload
+   - la preferenza per il *download* è più per *roba domestica*
+   - per i *server e roba* a cui si richiede tante cose c'è più in *upload*
+
+come si fa ... con il coso di rame dial up
+il coso di rame ... una direzione alla volta
+... telefonia numerica ...
+
+questa tecnica è ...
+però in ricezoine come si fa a dividere parte utente da...
+si fa con un filtro passa basso e con un filtro passa alto
+
+l'adsl ha la caratteristica, un po' più tecnica, di dare velocità più alta a ... perchè adatta la modulazione ... canale
+
+** Nat, a che serve, come funziona
+ho delle lan con un indirizzo
+un nat serve a specificare a quele dispositivo
+
+serve a installare con una connessione da questo a questo senza passare da intenret
+ed esporre la lan a internet con una tecnica (...)
+
+serve ad aggregare più utenti con un solo indirizzo ip
+normalmente non ci sono conflitti, ma metti ho con lo stesso numero di porta indicato da due...
+il nat ha una tabella interna e boh
+
+il router nat va a scegliersi una tabella di routing interna associandola a boh.
+quando ... ricostruisce il datagramma corretto e lo manda a quello giusto
+
+** Tecniche polling
+non so cosa cazzo ha detto ma il fantacci si è tolto gli occhiali in modo drammatico
+
+ha preso 22
+
+* N + 8
+** Strutture di commutazione S-S
+sono delle strutture omogenee
+consentono il cambio di linea
+ - si partizionano le linee di ingresso in più blocchi con lo stesso nuemero di ingressi
+ - si partizionano le lineee di uscita in più blocchi con lo stesso numero di uscite
+
+ - la seconda del primo (ingresso) viene collegata alla prima del secondo (uscita) e così via
+
+*** Bloccaggine
+sono bloccanti
+per renderle non bloccanti ogni nodo di quelli in ingresso dovrebbe avere tante uscite quante quelle della rete
+
+descrivi quando nasce il blocco e poi dimmi come si fa ad evitare
+(qualche incertezza nell'esposizione di questo punto)
+
+** Router generalizzato
+...
+
+si suddividono in due famiglie
+ - senza tabella :: flooding et al
+ - con tabella :: tecniche
+   - statiche :: ...
+   - dinamiche :: ...
+
+e invece il fantacci stava parlando delle sdn, software d(?) network
+il routing gnenralizzato consiste nell'instradamento e ... di pacchetti
+aspe' questo non è ... questo è come è struttrata la rete
+
+il routing generalizzato è a livello più basso, perchè si chiama generalizzato
+perchè si va a fare il routing non solo con la coppia sorgente destinazione, ma anche valori in altri campi, tipo al livello tcp
+per fare ad esempio routing in modo diverso per divesi tipi di traffico 
+si va ad aumentare i campi da leggere e da processare
+
+** Tecnica (dip)?
+dinamica
+"imparentata" con il distance vecotr
+usa come valore di irrangiugibilità il numero 15
+
+come metrica per il costo dei singoli collegamenti usa il numero di ...
+
+25
+(ci pensa)
+
+* N + 9
+** Reti FDDI
+hanno connessioni su bus
+sono entrambi direzionali
+
+quella principale è quella esterna
+quella interana è di backup e/o per aumentare la banda
+
+c'è il token, ci sono contatori
+
+partiamo dall'inizio, per funzionare qui si va a definire un parametro di riferimento,
+il =Token Target Rotaton Time=
+
+il valore effettivo sarà maggiore o ugugale del tempo target, torvato questo valore come si usa per gestire l'accesso
+tieni il token e mandi il token e ...
+
+per arrivare a ... il nodo deve ... alcune operazioni perliminari
+cosare il tempo effettivo per ... cosare
+
+si va a calcolare il =Token Holding Time=, il tempo per cui è concesso tenere il token
+se ... è maggiore del tempo che ci vuole a ... può mandare anche asincrona
+altrimenti il tempo di riferimento sarà solo ... in maniera sincrona
+
+** Tecnica token bucket
+utilizzata sempre per l'accesso oridnato al canale e ...
+
+cos'è innanzitutto, è una tecnica per la prevenzione delle congestioni
+ - si ha un buffer, il token bucket
+ - e un altro buffer, i pacchetti da mandare
+
+così si tengono i permessi del nodo per mandare la roba che manda
+che parametro controlla, il rate.
+il rate è una variabile aleatoria, questa tecnica quale aspetto del rate tiene costante (va a controllare il rate medio)
+
+** Maschera di rete
+una maschera di rete serve a indicare quali bit sono per l'indirizzo della rete e quali bit sono per l'indirizzo dell'host
+nella maschera viene dato un ulteriore numero e ...
+
+il router come fa per scoprirlo? (mi sono perso questa parte)
+
+24
+
+* N + 10
+(package lost)
+
+* N + 11
+** Strutture di commutazoine S-T
+sono strutture di commutazione non omogenee
+in genrale queste strutture permetono sia un cambio di canale all'interno della stessa linea che un cambio di linea
+
+per risolvere questo problema di blocco si usano strutture a tre stadii, come la T-S-T o la S-T-S
+
+*** Problema di blocco
+il blocco succede quando ho due linee da due canali di ingresso che vogliono andare su due canali diversi della stessa linea di uscita
+
+** Accesso ordinato
+a livello MAC
+ - Roll Call :: il master ha una lista, questa può essere utilizzata per tipologie a stella
+ - Hub Polling :: per tipologie a bus, il master, a un estremo del bus di solito. manda un ... all'ultimo nel bus, e questo lo porta indietro
+
+*** Tipi di accesso
+ - gated :: si ha un tempo massimo, se hai pacchetti da mandare dopo quel tempo aspetti
+ - esaustivo :: il nodo può trasmettere quanto vuole finchè non ha finito i pacchetti
+
+e questo tempo gated come viene definito?
+durante una fase di setup della rete? NO
+è un tempo casuale che dipede da varii parametri relativi al nodo e alla rete
+
+** Tecniche Clustering
+utilizzato nelle reti di sensori per rendere le reti di sensori più efficienti
+ - leach :: =low energy adaptive clustering hierarchy=
+   si ha un capo cluster...
+   in generale qui tutti devo essere connessi al sink in quanto devono poter essere tutti capo cluster
+   il problema con queste ...
+   non mirata all'energia
+ - HEED :: Hyprid Energy Efficient Distributed Clustering
+   ...
+
+   ti do un voto che in genere non do mai, 29
+
+* N + 12
+(di elettronica e automazione)
+** Formula di Clos e ottimizzazoine del costo
+si calcola il numero di blocchi ... del secondo stadio
+...
+si analizza il caso peggiore
+ - i due blocchi sono disgiunti
+ - si fanno altre ipotesi e boh
+
+il calcolo del costo non me lo ricordo
+
+** CSMA CA
+tecnica di accesso casuale che prevede
+acrnonimo sta per
+ - carrier
+ - sensing
+ - ...
+
+si divide in più tipi
+ - persistent :: ascolta di continuo e manda quando libero
+ - persistent p :: ascolta e quando libero manda con probailità costante \(p\)
+ - non persistent :: ascolto ...
+
+(che poi aveva chiesto il csma ca perchè hai detto del csma in generale)
+
+** Problema del terminale nascosto
+abbiamo i terminali \(A\), \(B\), e \(C\).
+si ha una collisione quando \(A\) manda a \(B\) e \(C\) non riesce a vederlo
+
+si risolve implementando una procedura di handshake con \(RTS\) e \(CTS\)
+
+i pacchetti \(RTS\) e \(CTS\) hanno un nav
+il nav è un ... che inibisce ... per permettere la durata massima della trasmissione
+
+in nav serve a dare una durata all'inbizione dei terminali per evitare collisioni
+
+** Congestion avoidance fast recovery
+si divide in ...
+c'è il caso della congestione lieve e il caso della collisione critica
+
+*** lieve
+   la congestione lieve si ha quando un pacchetto del quale non si ha riscontro e successivamente a questo mancato riscontro arrivano altri pacchetti
+   arrivano riscontri di pacchetti ma non quelli dei pacchetti che si stanno aspettando
+
+   fino a quando si può attendere per questo?
+    - fin quando non scade il tempo massimo per cui ...
+    - o se invece questa cosa non è avvenuta però? Arrivano più di 3 pacchetti fuori sequenza, in tal caso la condizione è grave
+   
+*** critica
+(mi sono perso questa parte, credo si torni allo slow start)
+
+24
+
+* N + 13
+** nel bridge
+*** Come si risolvono i cicli
+in quel caso invece di ... si fa un albero
+solitamente si crea utilizzando il minimun spanning tree fatto con dijkstra
+
+*** Fino a che livello opera?
+
+** Routing senza tabella
+ - casuali :: si basano sulla scelta, il metodo di frowarding, su una distribuzoine statistica, mandano fuori sulla porta con maggior...
+ - flooding :: lo mandi a tutti salvo quello che te l'ha mandato
+
+il flooing è motlo costoso, ci sono accorgimenti che si possono fare al riguardo, come mettere un parametro =TTL=, o =Time To Live= nell'header
+
+** ??
+altrimenti si fa che mandi un messaggio in flooding che tiene conto del numero di hop fatti e degli hop che ha fatto, il primo messsaggio flooding arrivato sarà quello col cammino minimo, qiundi si rimanda indietro il pacchetto col cammino che ha fatto e ...
+
+** il TCP e come apre connessioni
+...
+il tcp manda in maniera ordinata, il destinatario ordina con un buffer
+con riscontro
+
+per l'apertura del percorso si fa con una techica di handshaking
+nel tcp i pacchetto contengono un numero di sequenza e un numero di riscontro
+
+il numero di sequenza non parte sempre da 0 ma si sceglie un intero 32 bit alla cazzo
+
+*** Handshake
+nell'handshake ci sono quei tre messaggi
+si hanno falg
+
+1. si inizia col messaggio col flag =Syn= e un numero di sequenza
+2. il server risponde con un messaggio =Ack= con un numero di sequenza e il riscontro del =Syn=
+3. non ha il tempo di finire la frase che prende 30
+
+* N + 14
+** Indirizzamento IPv4 con le classi
+l'ipv4 fa parte del tcp ip che fa parte dell'IEEE 802
+l'ipv4 ... 160 bit e ha un ... limitato che altrimenti viene frammentato
+nell'header ci sono i flag sulla frammentazione
+
+*** L'indirizzamento per classi?
+innanzitutto le classi cosa fanno?
+partizionano il campo di 4 byte in sottoparti con dimensioni vincolate
+hai la parte a net id e la parte a host id
+
+il problema però di questo è che se uno prende un blocco di indirizzi ti prendi tutti gli host id sottostanti, e se non li usi tutti è uno spreco
+allora è stato trovato il modo della subnet mask eccetera eccetera
+(tutto questo detto dal fantacci per motivi che il lettore capirà bene)
+
+** il protocollo UDP
+l'udp fa parte del layer di trasporto, come il tcp
+ma è un protocollo, a differenza del tcp, di tipo connection less (i datagrammi fanno il cazzo che vogliono)
+(è pure inaffidabile)
+(molta incertezza sull'esposizione)
+
+come si fa a renderlo connection oriented? una furbata
+si fa con un solo pacchetto, e allora pefforza la connessinoe l'ordine è lo stesso dell'invio
+
+** CLOS T-S-T
+la T-S-T permette di cambiare la linea sia prima che dopo la S
+come si riadattano le ipotesi del caso S-S-S per il caso T-S-T (di clos o di costo boh)
+(altre incertezze sull'esposizione)
+
+voto 23
+
+* N + 15
+** Compatibilità tra IPv4 e IPv6
+un'area con un tipo di rete attraversa un'area con un tipo di rete diverso
+c'è un riadattemento del tipo di protocollo
+
+ad esempio per intepretare un ipv6 e mandarlo su una rete solo ipv4
+si è fatta l'analogia /attraente/ del traghetto che porta le macchine sul fiume
+
+l'altro più semplice da dire e più complicato da fare è quello dual stack
+
+** Reti SDN
+so... defined network
+
+si separa il piano controllo dal piano hardware e si utilizzano metodologie di "virtualizzazoine"
+abemus virtual machine
+*** Perchè il problema del conteggio all'infinito non è presente?
+perchè qui il problema col distance vector non c'è
+non c'è l'aggiornamento continuo tra nodo a nodo che porta a quel problema
+cosa c'è qui in sostutizione a questo aggiornamento da nodo a nodo? C'è il /famoso/ nodo centrale
+
+** Leaky bucket
+se hai trasmetti, se non hai non trasmetti
+questa tecnica controlla esattamente il rate massimo
+non posso mandare più di un pacchetto ogni ... secondi
+(il bitrate medio è del token bucket)
+
+23
+
+* N + 16
+(altre stampelle, quindi si eviterà la lavagna)
+(ingengeria informatica)
+** Strutture T-S
+sono strutture per avere più libertà rispetto alle strutture T o S singole
+le S sono utilizzate per telefonia analigoca e digitale
+le T sono utilizzate per telefonia digitale e basta
+*** quando sono bloccanti
+il concetto di non bloccante vuol dire che in ogni momento puoi prendere un qualsiasi ingresso e metterlo su qualsiasi uscita
+
+quando su una linea di ingresso che ha una struttura T ci sono due richeste che vogliono andare sulla stessa posizione di trama su due linee di uscita diverse
+
+** NAT
+introdotto dopo l'ipv4 visto che non ci sono abbastanza indirizzi ipv4, vuol dire
+ - network
+ - address
+ - translation
+
+ci sono
+ - nat statica
+ - nat dinamica
+ - pat
+
+*** Statica
+ha una tabella in out di indirizzi 
+
+*** Dinamica
+non è la pat, ma sono simili
+nella nat c'è solo un indirizzo pubblico, se chiedono entrambi lo stesso servizio non si sa a chi assegnarlo
+il problema sorge più che altro quando usano poi entrambi lo stesso numero di porta che il traffico diventa 
+
+*** Pat, port address translation
+si ha un solo indirizzo pubblico
+qui all'indirizzo interno si associa una porta privata
+si fa un po' di routing a livello trasporto, balsfemo proprio
+
+** Tecnica RPF
+ - R :: 
+ - P :: ath
+ - F :: orwarding
+
+sensori
+di dati basata su ... boh   
+
+un nodo prima di fare una certa cosa verifica un'altra
+che il cammino da sorgente e ... sia il minimo possibile
+se non è arrivato dal cammino minimo il pacchetto viene scartato, così facendo si alleggerisce la rete
+
+25
+
+* N + 17
+ultimo della mattinata, ingnegneria informatica
+** Ottimizzazoine del costo di una struttura S-S-S di CLOS
+il risultato di clos si attua operando nel caso operativo peggiore
+si trova il \(k\) minore che ha comunque una condizione di non blocco
+
+ci sono delle ipotesi che definiscono il caso peggiore
+ - un solo ingresso libero
+ - una sola uscita libera
+ - la roba del secondo livello che prende il primo e che prende il secondo sono disgiunti
+
+ok ecco le ipotesi
+*** Ottimizzalo
+ - \(N\) è il numero di linee totali in ingresso e in uscita
+ - i blocchi di ingresso sono \(n\), i blocchi di uscita sono \(n\) 
+ - ci sono \(k\) blocchi nel secondo stadio, che saranno \(frac{N}{n} \times \frac{N}{n}\)
+
+roba, poi si ipotizza che \(N >> 1\), quindi ..., e ottenuta la formula del costo si fa la derivata e si mette pari a 0 per trovare il minimo.
+
+*** Vincoli realizzativi
+questo \(n\) dovrebbe essere un numero intero, quindi si va a vederlo in eccesso o difetto per vedere quale dei due ha costo minimo
+
+** Indirizzo class dell'ipv4
+ci sono 5 classi, \(A\), \(B\), \(C\), \(D\), ed \(E\).
+la classe \(E\) è riservata per indirizzi futuri
+le altre classi sono per tipi di traffico diversi
+ - \(A\) :: je
+ - \(B\) :: ne
+ - \(C\) :: sais
+ - \(D\) :: pas
+
+** CSMA
+... , si differenziano da aloha visto che stanno in ascolto del canale
+in caso si verfichi una collisione la di gestione si fa con una fase di backoff in cui aspetti un pochino alla cazzo
+a volte due nodi mandano insieme perchè non si sono sentiti a vicenda
+si vuole fare in modo che il tempo di vulnerabilità sia molto minore al tempo di inviare il messaggio
+
+voto 30
+
+   
+
+
+
+
+  
+
