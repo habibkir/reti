@@ -1,0 +1,176 @@
+* Primo
+(mancato)
+
+* Secondo
+(mancato)
+
+* Terzo
+presente
+** Formula di Clos
+si riparte in bellezza
+serve a trovare i valori ottimi per lo stadio intermedio per una struttura a tre stadi affinchè resti non bloccante minimizzando comunque il costo
+
+*** Dati / ipotesi
+ci mettiamo nel caso peggiore possibile
+le ipotesi, se non si fa queste ipotesi non si arriva al caso peggiore
+ - in cui vogliamo collegare l'unica linea libera in entrata all'unica linea libera in uscita
+ - le occupate in entrata sono disgiunte dalle occupate in uscita
+ - le occupaggini dal primo al secondo livello sono disgiunte dalle occupaggini dal terzo al secondo livello
+
+detto questo
+
+** Il bridge, cos'è, che fa
+il bridge è un dispositivo fisico che connette più reti lan
+questa è una cosa positiva perchè vogliamo connettere più reti lan minimizzando le collisioni
+
+il bridge segue una tecnica di autoapprendimento per capire ...
+flooding ...
+e poi con il messaggio di riscontro capisce a quale dispositivo era...
+
+ok ma così il bridge non farebbe niente, il bridge in realtà fa qualcosa, cioè filtra
+il bridge è un dispositivo /plug and play/ cioè lo metti lì e non devi configurare niente
+
+in maniera indiretta, quando arriva il pacchetto, legge l'indirizzo sorgente e la porta sorgente e boh
+(molto detto dal fantacci)
+
+** Routing Multicast e Multi Unicast
+ - Multicast :: 
+ - Multi Unicast ::
+uno manda a molti, manda più copie dello stesso messaggio che però non vengono tutte recapitate a...
+
+*** Differenza pratica
+quella è la differenza funzionale tra i due metodi
+qual'è la differenza pratica tra i due metodi?
+
+il multi unicast è più congestionato
+
+voto: 26
+
+* Quarto
+ingegneria informatica
+** Formula di Lee
+la formula di lee serve invece
+viene studiata perchè a volte la condizione di non blocco non serve
+spesso le reti non sono utilizzate per tutta la loro capacità, a volte basta che la probabilità che il commutatore vada in blocco sia molto bassa
+
+dato una \(\alpha\), probabilità che una trama sia bloccata, allora \(p = \alpha \times \dots\) 
+sono \(N\) linee e \(\frac{N}{n}\) quindi \(p = \alpha \frac{N}{n}\)
+
+non va bene la formula
+si provano varie permutazioni di simboli
+
+*** Formula
+\(\alpha\) è la probabilità che una linea di ingresso sia occupata
+ci sono \(n\) blocchi, quindi \(\frac{N}{n}\) linee di ingresso a blocco, \(k\) linee di uscita a blocco
+
+... dualità di avere una linea di ingresso occupato per via di un'uscita occupata
+non ci ho capito un cazzo, la probabilità di blocco
+\[ p = \frac{\alpha n}{k} \]
+
+quindi la probabilità di non blocco \(p_n = 1 - p\)
+altre cose che mi sono perso
+\[ {(1 - {(1 - p)}^2)}^k \]
+
+si nota che è un'approssimazione perchè clos
+
+** DHCP
+protocollo con cui vengono assegnati gli IP dinamici
+il dispositivo manda un messaggio in broadcast in cui chiede un ip
+i server che lo cagano gli mandano, sempre in broadcast, riconosce le richieste con il proprio numero, sceglie un ip, manda un messaggio al server chiedendo se quell'ip dinamico è ancora valido, e il server gli manda un messaggio confermando che è ancora libero sigillando l'accordo per l'assegnazoine dell'ip
+
+** DQDB
+reti per le vie metropolitane
+
+ci sono due tipi di slot sui canali, la trama è fatta a slot
+i messaggi sono di tipi
+ - prenotazoine
+ - dati
+
+i dispositivi hanno tre componenti
+ - buffer per dati
+ - contatore add drop
+ - contatore solo drop
+
+quello solo drop conta le ... nel bus opposto... aumenta quando legge una prentoazoine sul campo opposto e diminiuisce ogni volta che legge uno slot col campo di dati vuoto
+(fa schema architetturale)
+
+ - c'è l'add drop che legge da tot a incremento e da tat a decremento
+ - quando legge ... il valore dell'add drop viene copiato sul contatore drop, per vedere quante trame deve lasciare vuote per vedere quante trame deve lasciare libere prima di mandare il proprio messaggio
+ - durante l'attesa del contatore drop il contatore add drop continua ad andare su e giù per mantenere le invarianti che fanno funzionare la rete
+
+28
+
+* Quinto
+ingengeira informatica
+** Tecnica aloha
+è una tecnica dove si manda senza cagare che il canale sia occupato o meno
+ci sono due tipi
+ - puro
+ - slotted
+
+mandi e ascolti sul canale di riscontro
+se non trovi il riscontro vuol dire che non ti ha cagato
+
+*** Perchè lo slotted è meglio
+l'aloha slotted cos'è che evita che succeda, che può succedere nell'aloha normale
+che se te stai trasmettendo e non hai avuto collisione, nessuno può romperti il cazzo durante il tempo di accesso
+
+*** Risoluzoine delle collisioni
+scegli un tempo di ritardo massimo e scegli un tempo alla cazzo, con distribuzione uniforme per massimizzare la cazzo, e mandi dopo quel tempo mandi
+per quello slotted uguale
+
+** Direct diffusion
+per le reti di sensori
+quando si è interessati a un'informazione si manda in flooding che voglio l'informazione
+
+per il gradiente si ... da ogni sorgente a ... per definire la qualità del collegamento
+viene scelto quello con il graidente più alto che invia
+
+e poi fase di reinforcement da parte del ... per da parte della sorgente che chiede al sink di ignorare eventuali altri ...
+
+** Conteggio all'infinito
+(parla molto in fretta)
+il conteggio all'infinito si verificha quando hai tre nodi collegati in cascata e uno di questi si guasta e ...
+
+*** Rimedi al problema
+ - infinito finito :: hai uan soglia massima di distanza dopo la quale vaffanculo
+ - split horizon :: non mandare aggiornamenti a nodi che sono direttamente collegati, ma a volte ...
+   - connect reverse :: che serve a fare il refresh del collegamento e ...
+
+voto 28
+* Sesto
+** FDDI
+a doppio anello così se c'è un guasto all'anello superiore può lavorare l'anello inferiore
+altrimenti l'anello inferiore può servire ad aumentare la banda e le prestazioni della rete
+
+abemus token target rotatio time, che è quanto ci mettono tutti i nodi a mandare le token
+quello per la roba sincrona
+\[ TTRT = \sum_{i = vaffa}^{nculo} \alpha _i \]
+
+il token rotation time è il valore...
+
+** Tecnica ??S
+qualcosa con lunghezza ... di 32 byte che si basa su principi differenti rispetto al routing normale infatti gestisce informazioni su basi ... rispetto al ...
+/flusso/
+flussi diversi che hanno la stessa destinazione possono essere mandati su percorsi differenti
+una parte di questo N??S è ... su cui vengono instradate ...
+
+** Meccanismo Sliding Windows
+e dello slow start
+
+lo sliding windows serve per reagire alla congestione del flusso, consiste in una finestra di lughezza definita che definisce i pacchetti che devono essere inviati a partire dal primo tutti, è un sistema affidabile in quanto prevede il riscontro
+
+*** Slow Start
+all'inizio la sliding window è di lughezza minima pari ad 1, non appena il messaggio di arrivo... la sliding window viene aumentata di 1, questo ogni volta che ... avvenuta ricezione, se ciò non accade la lunghezza viene dimezzata o boh
+
+chiusura della finestra si aspetta che tutti i pacchetti vengano trasmessi e non ne ho idea
+
+28
+
+* Settimo
+* Ottavo
+* Nono
+* Decimo
+* Unidcesimo
+* Dodicesimo
+* Tredicesimo

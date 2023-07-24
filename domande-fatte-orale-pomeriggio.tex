@@ -1,0 +1,254 @@
+% Created 2023-07-24 Mon 15:08
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Biggie Dickus}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Biggie Dickus},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.5.5)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{Primo}
+\label{sec:org10a90a5}
+(mancato)
+
+\section{Secondo}
+\label{sec:org98a0ee8}
+(mancato)
+
+\section{Terzo}
+\label{sec:orgec51d2b}
+presente
+\subsection{Formula di Clos}
+\label{sec:org9cec5f1}
+si riparte in bellezza
+serve a trovare i valori ottimi per lo stadio intermedio per una struttura a tre stadi affinchè resti non bloccante minimizzando comunque il costo
+
+\subsubsection{Dati / ipotesi}
+\label{sec:org7a51379}
+ci mettiamo nel caso peggiore possibile
+le ipotesi, se non si fa queste ipotesi non si arriva al caso peggiore
+\begin{itemize}
+\item in cui vogliamo collegare l'unica linea libera in entrata all'unica linea libera in uscita
+\item le occupate in entrata sono disgiunte dalle occupate in uscita
+\item le occupaggini dal primo al secondo livello sono disgiunte dalle occupaggini dal terzo al secondo livello
+\end{itemize}
+
+detto questo
+
+\subsection{Il bridge, cos'è, che fa}
+\label{sec:org76895ce}
+il bridge è un dispositivo fisico che connette più reti lan
+questa è una cosa positiva perchè vogliamo connettere più reti lan minimizzando le collisioni
+
+il bridge segue una tecnica di autoapprendimento per capire \ldots{}
+flooding \ldots{}
+e poi con il messaggio di riscontro capisce a quale dispositivo era\ldots{}
+
+ok ma così il bridge non farebbe niente, il bridge in realtà fa qualcosa, cioè filtra
+il bridge è un dispositivo \emph{plug and play} cioè lo metti lì e non devi configurare niente
+
+in maniera indiretta, quando arriva il pacchetto, legge l'indirizzo sorgente e la porta sorgente e boh
+(molto detto dal fantacci)
+
+\subsection{Routing Multicast e Multi Unicast}
+\label{sec:org0fb676c}
+\begin{description}
+\item[{Multicast}] 
+
+\item[{Multi Unicast}] 
+\end{description}
+uno manda a molti, manda più copie dello stesso messaggio che però non vengono tutte recapitate a\ldots{}
+
+\subsubsection{Differenza pratica}
+\label{sec:org4d23bd4}
+quella è la differenza funzionale tra i due metodi
+qual'è la differenza pratica tra i due metodi?
+
+il multi unicast è più congestionato
+
+voto: 26
+
+\section{Quarto}
+\label{sec:org2df47d9}
+ingegneria informatica
+\subsection{Formula di Lee}
+\label{sec:org22094d0}
+la formula di lee serve invece
+viene studiata perchè a volte la condizione di non blocco non serve
+spesso le reti non sono utilizzate per tutta la loro capacità, a volte basta che la probabilità che il commutatore vada in blocco sia molto bassa
+
+dato una \(\alpha\), probabilità che una trama sia bloccata, allora \(p = \alpha \times \dots\) 
+sono \(N\) linee e \(\frac{N}{n}\) quindi \(p = \alpha \frac{N}{n}\)
+
+non va bene la formula
+si provano varie permutazioni di simboli
+
+\subsubsection{Formula}
+\label{sec:orgf28db30}
+\(\alpha\) è la probabilità che una linea di ingresso sia occupata
+ci sono \(n\) blocchi, quindi \(\frac{N}{n}\) linee di ingresso a blocco, \(k\) linee di uscita a blocco
+
+\ldots{} dualità di avere una linea di ingresso occupato per via di un'uscita occupata
+non ci ho capito un cazzo, la probabilità di blocco
+\[ p = \frac{\alpha n}{k} \]
+
+quindi la probabilità di non blocco \(p_n = 1 - p\)
+altre cose che mi sono perso
+\[ {(1 - {(1 - p)}^2)}^k \]
+
+si nota che è un'approssimazione perchè clos
+
+\subsection{DHCP}
+\label{sec:org539cd36}
+protocollo con cui vengono assegnati gli IP dinamici
+il dispositivo manda un messaggio in broadcast in cui chiede un ip
+i server che lo cagano gli mandano, sempre in broadcast, riconosce le richieste con il proprio numero, sceglie un ip, manda un messaggio al server chiedendo se quell'ip dinamico è ancora valido, e il server gli manda un messaggio confermando che è ancora libero sigillando l'accordo per l'assegnazoine dell'ip
+
+\subsection{DQDB}
+\label{sec:org47de33b}
+reti per le vie metropolitane
+
+ci sono due tipi di slot sui canali, la trama è fatta a slot
+i messaggi sono di tipi
+\begin{itemize}
+\item prenotazoine
+\item dati
+\end{itemize}
+
+i dispositivi hanno tre componenti
+\begin{itemize}
+\item buffer per dati
+\item contatore add drop
+\item contatore solo drop
+\end{itemize}
+
+quello solo drop conta le \ldots{} nel bus opposto\ldots{} aumenta quando legge una prentoazoine sul campo opposto e diminiuisce ogni volta che legge uno slot col campo di dati vuoto
+(fa schema architetturale)
+
+\begin{itemize}
+\item c'è l'add drop che legge da tot a incremento e da tat a decremento
+\item quando legge \ldots{} il valore dell'add drop viene copiato sul contatore drop, per vedere quante trame deve lasciare vuote per vedere quante trame deve lasciare libere prima di mandare il proprio messaggio
+\item durante l'attesa del contatore drop il contatore add drop continua ad andare su e giù per mantenere le invarianti che fanno funzionare la rete
+\end{itemize}
+
+28
+
+\section{Quinto}
+\label{sec:org2989366}
+ingengeira informatica
+\subsection{Tecnica aloha}
+\label{sec:org0a4c7fc}
+è una tecnica dove si manda senza cagare che il canale sia occupato o meno
+ci sono due tipi
+\begin{itemize}
+\item puro
+\item slotted
+\end{itemize}
+
+mandi e ascolti sul canale di riscontro
+se non trovi il riscontro vuol dire che non ti ha cagato
+
+\subsubsection{Perchè lo slotted è meglio}
+\label{sec:orgacaad27}
+l'aloha slotted cos'è che evita che succeda, che può succedere nell'aloha normale
+che se te stai trasmettendo e non hai avuto collisione, nessuno può romperti il cazzo durante il tempo di accesso
+
+\subsubsection{Risoluzoine delle collisioni}
+\label{sec:orgfe8d37b}
+scegli un tempo di ritardo massimo e scegli un tempo alla cazzo, con distribuzione uniforme per massimizzare la cazzo, e mandi dopo quel tempo mandi
+per quello slotted uguale
+
+\subsection{Direct diffusion}
+\label{sec:orgf5aa814}
+per le reti di sensori
+quando si è interessati a un'informazione si manda in flooding che voglio l'informazione
+
+per il gradiente si \ldots{} da ogni sorgente a \ldots{} per definire la qualità del collegamento
+viene scelto quello con il graidente più alto che invia
+
+e poi fase di reinforcement da parte del \ldots{} per da parte della sorgente che chiede al sink di ignorare eventuali altri \ldots{}
+
+\subsection{Conteggio all'infinito}
+\label{sec:orgb739c61}
+(parla molto in fretta)
+il conteggio all'infinito si verificha quando hai tre nodi collegati in cascata e uno di questi si guasta e \ldots{}
+
+\subsubsection{Rimedi al problema}
+\label{sec:org9821d74}
+\begin{description}
+\item[{infinito finito}] hai uan soglia massima di distanza dopo la quale vaffanculo
+\item[{split horizon}] non mandare aggiornamenti a nodi che sono direttamente collegati, ma a volte \ldots{}
+\begin{description}
+\item[{connect reverse}] che serve a fare il refresh del collegamento e \ldots{}
+\end{description}
+\end{description}
+
+voto 28
+\section{Sesto}
+\label{sec:orgdb93d95}
+\subsection{FDDI}
+\label{sec:org76998a9}
+a doppio anello così se c'è un guasto all'anello superiore può lavorare l'anello inferiore
+altrimenti l'anello inferiore può servire ad aumentare la banda e le prestazioni della rete
+
+abemus token target rotatio time, che è quanto ci mettono tutti i nodi a mandare le token
+quello per la roba sincrona
+\[ TTRT = \sum_{i = vaffa}^{nculo} \alpha _i \]
+
+il token rotation time è il valore\ldots{}
+
+\subsection{Tecnica ??S}
+\label{sec:orgc8c9a43}
+qualcosa con lunghezza \ldots{} di 32 byte che si basa su principi differenti rispetto al routing normale infatti gestisce informazioni su basi \ldots{} rispetto al \ldots{}
+\emph{flusso}
+flussi diversi che hanno la stessa destinazione possono essere mandati su percorsi differenti
+una parte di questo N??S è \ldots{} su cui vengono instradate \ldots{}
+
+\subsection{Meccanismo Sliding Windows}
+\label{sec:org7cc0b59}
+e dello slow start
+
+lo sliding windows serve per reagire alla congestione del flusso, consiste in una finestra di lughezza definita che definisce i pacchetti che devono essere inviati a partire dal primo tutti, è un sistema affidabile in quanto prevede il riscontro
+
+\subsubsection{Slow Start}
+\label{sec:org055fb8a}
+all'inizio la sliding window è di lughezza minima pari ad 1, non appena il messaggio di arrivo\ldots{} la sliding window viene aumentata di 1, questo ogni volta che \ldots{} avvenuta ricezione, se ciò non accade la lunghezza viene dimezzata o boh
+
+chiusura della finestra si aspetta che tutti i pacchetti vengano trasmessi e non ne ho idea
+
+28
+
+\section{Settimo}
+\label{sec:org78a09cd}
+\section{Ottavo}
+\label{sec:orgeb0d7a3}
+\section{Nono}
+\label{sec:orgd138f9a}
+\section{Decimo}
+\label{sec:org68baf9d}
+\section{Unidcesimo}
+\label{sec:org560808f}
+\section{Dodicesimo}
+\label{sec:org3f54fe8}
+\section{Tredicesimo}
+\label{sec:orgaf2b263}
+\end{document}
