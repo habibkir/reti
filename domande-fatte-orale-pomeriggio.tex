@@ -1,4 +1,4 @@
-% Created 2023-07-24 Mon 15:08
+% Created 2023-07-24 Mon 15:42
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -27,23 +27,23 @@
 \tableofcontents
 
 \section{Primo}
-\label{sec:org10a90a5}
+\label{sec:org5a10a8a}
 (mancato)
 
 \section{Secondo}
-\label{sec:org98a0ee8}
+\label{sec:org985a268}
 (mancato)
 
 \section{Terzo}
-\label{sec:orgec51d2b}
+\label{sec:org4fd035f}
 presente
 \subsection{Formula di Clos}
-\label{sec:org9cec5f1}
+\label{sec:org8fa4c16}
 si riparte in bellezza
 serve a trovare i valori ottimi per lo stadio intermedio per una struttura a tre stadi affinchè resti non bloccante minimizzando comunque il costo
 
 \subsubsection{Dati / ipotesi}
-\label{sec:org7a51379}
+\label{sec:org7b8596f}
 ci mettiamo nel caso peggiore possibile
 le ipotesi, se non si fa queste ipotesi non si arriva al caso peggiore
 \begin{itemize}
@@ -55,7 +55,7 @@ le ipotesi, se non si fa queste ipotesi non si arriva al caso peggiore
 detto questo
 
 \subsection{Il bridge, cos'è, che fa}
-\label{sec:org76895ce}
+\label{sec:org92a194f}
 il bridge è un dispositivo fisico che connette più reti lan
 questa è una cosa positiva perchè vogliamo connettere più reti lan minimizzando le collisioni
 
@@ -70,7 +70,7 @@ in maniera indiretta, quando arriva il pacchetto, legge l'indirizzo sorgente e l
 (molto detto dal fantacci)
 
 \subsection{Routing Multicast e Multi Unicast}
-\label{sec:org0fb676c}
+\label{sec:orgc3266a3}
 \begin{description}
 \item[{Multicast}] 
 
@@ -79,7 +79,7 @@ in maniera indiretta, quando arriva il pacchetto, legge l'indirizzo sorgente e l
 uno manda a molti, manda più copie dello stesso messaggio che però non vengono tutte recapitate a\ldots{}
 
 \subsubsection{Differenza pratica}
-\label{sec:org4d23bd4}
+\label{sec:org5900f31}
 quella è la differenza funzionale tra i due metodi
 qual'è la differenza pratica tra i due metodi?
 
@@ -88,10 +88,10 @@ il multi unicast è più congestionato
 voto: 26
 
 \section{Quarto}
-\label{sec:org2df47d9}
+\label{sec:org5cea448}
 ingegneria informatica
 \subsection{Formula di Lee}
-\label{sec:org22094d0}
+\label{sec:orga79c4a9}
 la formula di lee serve invece
 viene studiata perchè a volte la condizione di non blocco non serve
 spesso le reti non sono utilizzate per tutta la loro capacità, a volte basta che la probabilità che il commutatore vada in blocco sia molto bassa
@@ -103,7 +103,7 @@ non va bene la formula
 si provano varie permutazioni di simboli
 
 \subsubsection{Formula}
-\label{sec:orgf28db30}
+\label{sec:org248ee93}
 \(\alpha\) è la probabilità che una linea di ingresso sia occupata
 ci sono \(n\) blocchi, quindi \(\frac{N}{n}\) linee di ingresso a blocco, \(k\) linee di uscita a blocco
 
@@ -118,13 +118,13 @@ altre cose che mi sono perso
 si nota che è un'approssimazione perchè clos
 
 \subsection{DHCP}
-\label{sec:org539cd36}
+\label{sec:org116f53f}
 protocollo con cui vengono assegnati gli IP dinamici
 il dispositivo manda un messaggio in broadcast in cui chiede un ip
 i server che lo cagano gli mandano, sempre in broadcast, riconosce le richieste con il proprio numero, sceglie un ip, manda un messaggio al server chiedendo se quell'ip dinamico è ancora valido, e il server gli manda un messaggio confermando che è ancora libero sigillando l'accordo per l'assegnazoine dell'ip
 
 \subsection{DQDB}
-\label{sec:org47de33b}
+\label{sec:orgce3c90d}
 reti per le vie metropolitane
 
 ci sono due tipi di slot sui canali, la trama è fatta a slot
@@ -153,10 +153,10 @@ quello solo drop conta le \ldots{} nel bus opposto\ldots{} aumenta quando legge 
 28
 
 \section{Quinto}
-\label{sec:org2989366}
+\label{sec:org72aee5f}
 ingengeira informatica
 \subsection{Tecnica aloha}
-\label{sec:org0a4c7fc}
+\label{sec:orge96dd9c}
 è una tecnica dove si manda senza cagare che il canale sia occupato o meno
 ci sono due tipi
 \begin{itemize}
@@ -168,17 +168,17 @@ mandi e ascolti sul canale di riscontro
 se non trovi il riscontro vuol dire che non ti ha cagato
 
 \subsubsection{Perchè lo slotted è meglio}
-\label{sec:orgacaad27}
+\label{sec:orgb12b978}
 l'aloha slotted cos'è che evita che succeda, che può succedere nell'aloha normale
 che se te stai trasmettendo e non hai avuto collisione, nessuno può romperti il cazzo durante il tempo di accesso
 
 \subsubsection{Risoluzoine delle collisioni}
-\label{sec:orgfe8d37b}
+\label{sec:org687176a}
 scegli un tempo di ritardo massimo e scegli un tempo alla cazzo, con distribuzione uniforme per massimizzare la cazzo, e mandi dopo quel tempo mandi
 per quello slotted uguale
 
 \subsection{Direct diffusion}
-\label{sec:orgf5aa814}
+\label{sec:orgff5c118}
 per le reti di sensori
 quando si è interessati a un'informazione si manda in flooding che voglio l'informazione
 
@@ -188,12 +188,12 @@ viene scelto quello con il graidente più alto che invia
 e poi fase di reinforcement da parte del \ldots{} per da parte della sorgente che chiede al sink di ignorare eventuali altri \ldots{}
 
 \subsection{Conteggio all'infinito}
-\label{sec:orgb739c61}
+\label{sec:org3657244}
 (parla molto in fretta)
 il conteggio all'infinito si verificha quando hai tre nodi collegati in cascata e uno di questi si guasta e \ldots{}
 
 \subsubsection{Rimedi al problema}
-\label{sec:org9821d74}
+\label{sec:org1386c1c}
 \begin{description}
 \item[{infinito finito}] hai uan soglia massima di distanza dopo la quale vaffanculo
 \item[{split horizon}] non mandare aggiornamenti a nodi che sono direttamente collegati, ma a volte \ldots{}
@@ -204,9 +204,9 @@ il conteggio all'infinito si verificha quando hai tre nodi collegati in cascata 
 
 voto 28
 \section{Sesto}
-\label{sec:orgdb93d95}
+\label{sec:orgc3fdaa9}
 \subsection{FDDI}
-\label{sec:org76998a9}
+\label{sec:orgf72caab}
 a doppio anello così se c'è un guasto all'anello superiore può lavorare l'anello inferiore
 altrimenti l'anello inferiore può servire ad aumentare la banda e le prestazioni della rete
 
@@ -217,20 +217,20 @@ quello per la roba sincrona
 il token rotation time è il valore\ldots{}
 
 \subsection{Tecnica ??S}
-\label{sec:orgc8c9a43}
+\label{sec:org12fd5dd}
 qualcosa con lunghezza \ldots{} di 32 byte che si basa su principi differenti rispetto al routing normale infatti gestisce informazioni su basi \ldots{} rispetto al \ldots{}
 \emph{flusso}
 flussi diversi che hanno la stessa destinazione possono essere mandati su percorsi differenti
 una parte di questo N??S è \ldots{} su cui vengono instradate \ldots{}
 
 \subsection{Meccanismo Sliding Windows}
-\label{sec:org7cc0b59}
+\label{sec:orga559a2a}
 e dello slow start
 
 lo sliding windows serve per reagire alla congestione del flusso, consiste in una finestra di lughezza definita che definisce i pacchetti che devono essere inviati a partire dal primo tutti, è un sistema affidabile in quanto prevede il riscontro
 
 \subsubsection{Slow Start}
-\label{sec:org055fb8a}
+\label{sec:orga9ec519}
 all'inizio la sliding window è di lughezza minima pari ad 1, non appena il messaggio di arrivo\ldots{} la sliding window viene aumentata di 1, questo ogni volta che \ldots{} avvenuta ricezione, se ciò non accade la lunghezza viene dimezzata o boh
 
 chiusura della finestra si aspetta che tutti i pacchetti vengano trasmessi e non ne ho idea
@@ -238,17 +238,175 @@ chiusura della finestra si aspetta che tutti i pacchetti vengano trasmessi e non
 28
 
 \section{Settimo}
-\label{sec:org78a09cd}
+\label{sec:org48fa550}
+ingengieria informatica
+\subsection{Nat}
+\label{sec:org3b59b5a}
+network address translation
+traduzione di molti ip privati in pochi ip pubblici
+
+permette la traduzione di più ip privati a un solo ip pubblici
+\begin{description}
+\item[{statico}] 
+
+\item[{dinamico}] un solo ip pubblico
+\item[{boh}] 
+\end{description}
+
+\subsubsection{Cosa si intende quando questo sistema ci pone davanti a un'ambigiutà}
+\label{sec:org9445f9c}
+non si ha più la divisione dei protocolli, tipo quello che fa il routing a livello trasporto  
+
+chiedeva quando due indirizzi della rete nat comunicano con uno stesso indirizzo pubblico
+ambiguità perchè (ok non l'ha detto)
+abè su usano le porte
+
+si crea una tabella di istradamento che associa a un ip interno e lo associa a un ip fittizio interno
+è in questo caso che fa un routing a livello di trasporto, c'è mi vai a invadere il tcp per il routing, povero tcp
+
+il routing lo fa a livello tcp, a livello 4, utilizzando il livello di porta, che è di un livello superiore
+
+\subsection{SDN}
+\label{sec:orgbae07ce}
+Software Defined Network
+si ottiene tramite la creazione di una rete virtuale la proprietà di gestire tutta la rete da un unico punto di controllo
+(bla bla routing generalizzato perchè usa informazioni da più livello)
+
+\subsubsection{Qual'è la caratteristica saliente di questo tipo di rete}
+\label{sec:org0905fb1}
+molto più facile da gestire, maggiore sicurezza
+prevede la separazione del livello fisico dal livello software
+
+prevede la distinzione dello stato fisico dallo strato di gestione
+
+\subsubsection{Per mettere più reti su uno stesso hardware}
+\label{sec:org522d904}
+viene adoperata una metodolgia di virtualizzazione, hai più macchine virtuali ognuna delle quali gestisce una rete (perchè avere più processi diversi per reti diverse è troppo mainstream, famo le macchine virtuali va, lo mettiamo anche su aws?)
+
+\subsection{Architettura IOT}
+\label{sec:orgcbcd040}
+internet of things
+\ldots{}\footnote{mi sono perso questa parte per insultare le macchine virutali}
+\emph{SENSING}
+
+26
+
 \section{Ottavo}
-\label{sec:orgeb0d7a3}
+\label{sec:orgf016c37}
+(mancato)
+
 \section{Nono}
-\label{sec:orgd138f9a}
+\label{sec:org65f6d47}
+ingengneria elettronica
+ho chiesto tutto ormai c'è poco da fare, si rifa domande
+\subsection{Parlami della frammentazione}
+\label{sec:org746165f}
+la frammentazione è un concetto che si applica quando ci troviamo a inoltrare un datagramma che eccede le dimensioni massime consentite
+\ldots{} \texttt{MDU} o \texttt{Maximum Designation Unit}, \ldots{} questa operazione per quanto riguarda l'indirizzamento ipv4 è \ldots{} dal primo router in uscita e \ldots{}
+
+il router a cui è connesso il dispositivo sorgente si occuperà di dividere in più parti il datagramma a seconda dell'mdu e il router \ldots{} si occuperà di ricostruire il datagramma
+ricollegandoci al fatto che questo è per l'ipv4 ci sono campio specifici nella testata \ldots{}
+
+nell'informazine scritta nella testata il campo \ldots{} offset a che serve? Come viene utilizzato dai dispositivi
+si prevede l'uso di certi campi, uno di questi è il fragment offset, utilizzato nell'ipv4 per la \ldots{} della frammentazione, utilizzato per effettuare una corretta ricostruizione del datagramma origianle per
+
+\subsection{Tecniche polling}
+\label{sec:org7915560}
+ci sono tecniche mac ordinate e non ordinate, quelle polling sono tra quelle ordinate
+le tecniche ordinate provano a evitare puttanaio
+il livello mac si occupa di gestire l'accesso ai dispositivo
+
+ritornando alla domanda le tecniche polling prevedono l'invio di un messaggio di autorizzazione da parte di un dispositivo master, ce ne sono due varianti
+\begin{itemize}
+\item roll call
+\item hub polling
+\end{itemize}
+
+\subsubsection{Roll Call}
+\label{sec:org3239b05}
+per architetture più centrali tipo quella a stella, il master invia un messaggio di autorizzazoine a ogni \ldots{} che poi lo rimanda al master \ldots{}
+
+\subsubsection{Hub Polling}
+\label{sec:orge2151f0}
+si adatta ad architetture a bus, il master manda il token all'ultimo nel bus \ldots{}
+
+\subsubsection{Tipi di accesso}
+\label{sec:org876ff97}
+\begin{description}
+\item[{gated}] utilizzo del canale con un certo tempo massimo predefinito
+\item[{esaustiva}] accesso al canale fino a che non si esaruiscono i dati da mandare
+\end{description}
+
+\begin{enumerate}
+\item il tempo di accesso per la gated
+\label{sec:orgc9ea912}
+non è uguale per tutti i nodi ma viene determinato in base al numero di pacchetti che arrivano tra un arrivo del token e il successivo
+\end{enumerate}
+
+\subsection{Sliding window}
+\label{sec:org0e891da}
+\begin{quote}
+una volta concluso lo slow start
+\end{quote}
+\ldots{} la dimesione della finestra è a metà del valore che ha creato la congestione, \ldots{} quando viene rilevata la congestione si arriva a un decremento esponenziale della finestra
+
+nella congestion avoidance si ha un incremento lineare e un decremento esponenziale
+
+\ldots{} permette di distinguere i tipi di congestione, leggera e pesante
+\begin{itemize}
+\item la congestione è pesante si trova quando non arriva un riscontro in ritardo o quando arrivano tre o più riscontri fuori ordine
+\item la congestione leggera, quindi temporanea, è quando si riceve il riscontro di un solo pacchetto\ldots{} in tal caso si torna alla congestoin avoidance
+\end{itemize}
+
+30, e parecchio meritato cazzo   
+
 \section{Decimo}
-\label{sec:org68baf9d}
-\section{Unidcesimo}
-\label{sec:org560808f}
-\section{Dodicesimo}
-\label{sec:org3f54fe8}
-\section{Tredicesimo}
-\label{sec:orgaf2b263}
+\label{sec:orgd03e596}
+\begin{quote}
+se poi non te lo verbalizzano non sono cazzi mia
+ \textasciitilde{} Il Sommo
+\end{quote}
+sempre di informatica
+\subsection{Parlami del conteggio all'infinito}
+\label{sec:org4c14fdf}
+è una problematca che possiamo riscontrare quando l'inoltro dei pacchetti va molto lento,
+non siamo arrivati neache all'introduzoine
+
+(silezio cosmico interrotto da rumori di notifiche del Fantacci)
+
+si usa col distance vector
+(continua a parlare di riscontri e collisioni, il fantacci non approva)
+
+quando si stanno facendo le tabelle di routing e distance vector
+\subsubsection{Soluzioni}
+\label{sec:org6a21539}
+si può avere un valore, tipi 15, per cui superato questo valore
+
+\subsection{Parlami del problema del terminale nascosto}
+\label{sec:org612357f}
+(a sto punto questo è un classico)
+(silenzio)
+
+possiamo utilizzare ad esempio una procedura di handshake
+come si chiamano i messaggi inviati per\ldots{}
+
+come si chiamano questi messaggi?
+\begin{description}
+\item[{RTS}] Request to send
+\item[{CTS}] Clear to send
+\end{description}
+
+nei cosi che senso ha il campo NAV?
+
+\subsection{Tecnica SPIN}
+\label{sec:org9954322}
+la tecnica spin è una tecnica che si usa nelle reti di sensori e utilizza il principio dell'offerta ?
+si manda in flooding una domanda di \ldots{}
+
+definisci un po' meglio le fasi
+\begin{enumerate}
+\item nodo pubblica "hey ho un risultato tipo!"
+\item i nodi \ldots{} gli dicono se sono interessati
+\item \ldots{}
+\end{enumerate}
 \end{document}

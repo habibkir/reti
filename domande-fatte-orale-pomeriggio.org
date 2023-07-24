@@ -168,9 +168,138 @@ chiusura della finestra si aspetta che tutti i pacchetti vengano trasmessi e non
 28
 
 * Settimo
+ingengieria informatica
+** Nat
+network address translation
+traduzione di molti ip privati in pochi ip pubblici
+
+permette la traduzione di più ip privati a un solo ip pubblici
+ - statico ::
+ - dinamico :: un solo ip pubblico
+ - boh ::
+
+*** Cosa si intende quando questo sistema ci pone davanti a un'ambigiutà
+non si ha più la divisione dei protocolli, tipo quello che fa il routing a livello trasporto  
+
+chiedeva quando due indirizzi della rete nat comunicano con uno stesso indirizzo pubblico
+ambiguità perchè (ok non l'ha detto)
+abè su usano le porte
+
+si crea una tabella di istradamento che associa a un ip interno e lo associa a un ip fittizio interno
+è in questo caso che fa un routing a livello di trasporto, c'è mi vai a invadere il tcp per il routing, povero tcp
+
+il routing lo fa a livello tcp, a livello 4, utilizzando il livello di porta, che è di un livello superiore
+
+** SDN
+Software Defined Network
+si ottiene tramite la creazione di una rete virtuale la proprietà di gestire tutta la rete da un unico punto di controllo
+(bla bla routing generalizzato perchè usa informazioni da più livello)
+
+*** Qual'è la caratteristica saliente di questo tipo di rete
+molto più facile da gestire, maggiore sicurezza
+prevede la separazione del livello fisico dal livello software
+
+prevede la distinzione dello stato fisico dallo strato di gestione
+
+*** Per mettere più reti su uno stesso hardware
+viene adoperata una metodolgia di virtualizzazione, hai più macchine virtuali ognuna delle quali gestisce una rete (perchè avere più processi diversi per reti diverse è troppo mainstream, famo le macchine virtuali va, lo mettiamo anche su aws?)
+
+** Architettura IOT
+internet of things
+...[fn::mi sono perso questa parte per insultare le macchine virutali]
+/SENSING/
+
+26
+
 * Ottavo
+(mancato)
+
 * Nono
+ingengneria elettronica
+ho chiesto tutto ormai c'è poco da fare, si rifa domande
+** Parlami della frammentazione
+la frammentazione è un concetto che si applica quando ci troviamo a inoltrare un datagramma che eccede le dimensioni massime consentite
+... =MDU= o =Maximum Designation Unit=, ... questa operazione per quanto riguarda l'indirizzamento ipv4 è ... dal primo router in uscita e ...
+
+il router a cui è connesso il dispositivo sorgente si occuperà di dividere in più parti il datagramma a seconda dell'mdu e il router ... si occuperà di ricostruire il datagramma
+ricollegandoci al fatto che questo è per l'ipv4 ci sono campio specifici nella testata ...
+
+nell'informazine scritta nella testata il campo ... offset a che serve? Come viene utilizzato dai dispositivi
+si prevede l'uso di certi campi, uno di questi è il fragment offset, utilizzato nell'ipv4 per la ... della frammentazione, utilizzato per effettuare una corretta ricostruizione del datagramma origianle per
+
+** Tecniche polling
+ci sono tecniche mac ordinate e non ordinate, quelle polling sono tra quelle ordinate
+le tecniche ordinate provano a evitare puttanaio
+il livello mac si occupa di gestire l'accesso ai dispositivo
+
+ritornando alla domanda le tecniche polling prevedono l'invio di un messaggio di autorizzazione da parte di un dispositivo master, ce ne sono due varianti
+ - roll call
+ - hub polling
+
+*** Roll Call
+per architetture più centrali tipo quella a stella, il master invia un messaggio di autorizzazoine a ogni ... che poi lo rimanda al master ...
+
+*** Hub Polling
+si adatta ad architetture a bus, il master manda il token all'ultimo nel bus ...
+
+*** Tipi di accesso
+ - gated :: utilizzo del canale con un certo tempo massimo predefinito
+ - esaustiva :: accesso al canale fino a che non si esaruiscono i dati da mandare
+
+**** il tempo di accesso per la gated
+non è uguale per tutti i nodi ma viene determinato in base al numero di pacchetti che arrivano tra un arrivo del token e il successivo
+
+** Sliding window
+#+begin_quote
+una volta concluso lo slow start
+#+end_quote
+... la dimesione della finestra è a metà del valore che ha creato la congestione, ... quando viene rilevata la congestione si arriva a un decremento esponenziale della finestra
+
+nella congestion avoidance si ha un incremento lineare e un decremento esponenziale
+
+... permette di distinguere i tipi di congestione, leggera e pesante
+ - la congestione è pesante si trova quando non arriva un riscontro in ritardo o quando arrivano tre o più riscontri fuori ordine
+ - la congestione leggera, quindi temporanea, è quando si riceve il riscontro di un solo pacchetto... in tal caso si torna alla congestoin avoidance
+
+30, e parecchio meritato cazzo   
+
 * Decimo
-* Unidcesimo
-* Dodicesimo
-* Tredicesimo
+#+begin_quote
+se poi non te lo verbalizzano non sono cazzi mia
+ ~ Il Sommo
+#+end_quote
+sempre di informatica
+** Parlami del conteggio all'infinito
+è una problematca che possiamo riscontrare quando l'inoltro dei pacchetti va molto lento,
+non siamo arrivati neache all'introduzoine
+
+(silezio cosmico interrotto da rumori di notifiche del Fantacci)
+
+si usa col distance vector
+(continua a parlare di riscontri e collisioni, il fantacci non approva)
+
+quando si stanno facendo le tabelle di routing e distance vector
+*** Soluzioni
+si può avere un valore, tipi 15, per cui superato questo valore
+
+** Parlami del problema del terminale nascosto
+(a sto punto questo è un classico)
+(silenzio)
+
+possiamo utilizzare ad esempio una procedura di handshake
+come si chiamano i messaggi inviati per...
+
+come si chiamano questi messaggi?
+ - RTS :: Request to send
+ - CTS :: Clear to send
+
+nei cosi che senso ha il campo NAV?
+
+** Tecnica SPIN
+la tecnica spin è una tecnica che si usa nelle reti di sensori e utilizza il principio dell'offerta ?
+si manda in flooding una domanda di ...
+
+definisci un po' meglio le fasi
+ 1. nodo pubblica "hey ho un risultato tipo!"
+ 2. i nodi ... gli dicono se sono interessati
+ 3. ...
