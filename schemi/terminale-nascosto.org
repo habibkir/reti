@@ -115,4 +115,4 @@ poi solito di prima, \(C\) riceve il "fatti li cazzi tua", \(D\) non è in range
 *** Monopolio
 Un altro problema che può sorgere è che certi canali poi abbiano un accesso esclusivo al canale per troppo tempo a discapito di altri nodi della rete
 
-lo standard prevede quindi la possiblità di assegnare a un nodo anche un tempo massimo di trasmissione, indicato come Transmission Opportunity
+lo standard prevede quindi la possiblità di assegnare a un nodo anche un tempo massimo di trasmissione, indicato come Transmission Opportunity (TXOP)

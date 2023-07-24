@@ -1,0 +1,88 @@
+% Created 2023-07-23 Sun 20:00
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Biggie Dickus}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Biggie Dickus},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.5.5)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+la congestione di un collegamento porta a parametri di riferimento fuori limite
+
+\section{Tecniche di controllo del flusso}
+\label{sec:orgfcd789e}
+ci sono metodi reattivi, che si attivano una volta che la congestione è stata rilevata, e metodi preventivi, che utilizzano metodologie che tendono a evitare che la congestione accada
+\subsection{Metodi reattivi}
+\label{sec:org0e89b14}
+\subsubsection{Sliding window}
+\label{sec:orge340e11}
+\begin{description}
+\item[{metodo credit based\footnotemark}] \footnotetext[1]{\label{org3aa851c}yo bing chiling}la trasmissione dei pacchetti da parte di un nodo è regolata da dei "permessi" che possono essere "revocati" se la congestione è stata rilevata
+
+funziona che inizi con \(W\) pacchetti di credito iniziale verso un nodo
+
+questi saranno inviati entro un intervallo di tempo, (per tenere traccia et al è richesto il riscontro)
+se il riscontro arriva alla sorgente entro il tempo di finestra la finestra scorre di una posizione e si procede alla trasmissione di un nuovo pacchetto, se invece il riscontro arriva con ritardo superiore al tempo di finestra allora la trasmissione di un nuovo paccchetto viene ritardata.
+
+non ci ho capito UNA SEGA
+\end{description}
+\subsection{Metodi preventivi}
+\label{sec:orga3452fd}
+\begin{description}
+\item[{admission control}] noto ad esempio in ATM
+\item[{altri metodi}] rate based
+\end{description}
+
+i metodi leaky bucket e token bucket permettono di trasmettere in sequenza tutti i pacchetti fino ad esaurire il numero di abilitazioni possedute
+
+\subsubsection{Algoritmo leaky bucket}
+\label{sec:orgb0d7833}
+vengono riversati sulla rete pacchetti con un data rate fissato, vengono mantenuti nel buffer quelli per la trasmissione.
+se vengono generati più pacchetti di quanti ne stanno nel buffer questi pacchetti extra vengono perduti, in questo modo non si controlla il data rate medio, ma si controlla quello massimo
+
+\subsubsection{Algoritmo token bucket}
+\label{sec:org3bc99bf}
+si ottiene un certo credito trasmissivo, quando poi c'è da trasmettere lo si fa utilizzando il credito a disposizione, alla velocità massima consentita dalla linea, se ci sono \(k\) token e devo mandare \(h>k\) pacchetti allora i primi \(k\) vengono trasmessi con il credito di \(k\), e gli altri dovranno aspettare che arrivi altro credito
+
+\section{Sicurezza di rete}
+\label{sec:org9c4453d}
+\begin{description}
+\item[{riservatezza}] ci piacerebbe se l'informazione che mando restassero cazzi mia
+\item[{integrità del messaggio}] se si usano tecniche per privacy sarebbe gradito che queste non avessero un impatto negativo sull'integrità della comunicazione
+\item[{autenticazione}] si vuole sapere l'identità di chi parla
+\item[{sicurezza operativa}] protezione nei riguardi di intrusioni non autorizzate, OPSEC BOIIIII
+\item[{crittografia}] metodo per rendere minimo il trasferimento dell'informazione (?)
+\end{description}
+
+\subsection{Tecniche a chiave simmetrica}
+\label{sec:orgeab2d08}
+prevede una chiave che consiste nel concordare uno spostamento del simbolo associato alla lettera
+un esempio è il codice di cesare
+il codice di cesare fa cagare il cazzo
+tipo alla seconda guerra mondiale in cui finivano tutte le frasi con "heil hitler" e gli hanno fatto il known plaintext attack di cristo
+grazie alan
+
+\subsection{Tecniche a chiave asimmetrica (public key)}
+\label{sec:orgfb1d311}
+RSA
+RSA è figo
+\end{document}

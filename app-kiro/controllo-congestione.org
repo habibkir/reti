@@ -1,6 +1,6 @@
 la congestione di un collegamento porta a parametri di riferimento fuori limite
 
-* Tecniche di controllo del vlusso
+* Tecniche di controllo del flusso
 ci sono metodi reattivi, che si attivano una volta che la congestione è stata rilevata, e metodi preventivi, che utilizzano metodologie che tendono a evitare che la congestione accada
 ** Metodi reattivi
 *** Sliding window

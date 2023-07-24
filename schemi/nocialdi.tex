@@ -1,0 +1,195 @@
+% Created 2023-07-23 Sun 19:54
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Biggie Dickus}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Biggie Dickus},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.5.5)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{accesso multiplo}
+\label{sec:org8b907e0}
+condivisione del mezzo fisico
+puoi farlo con un ordine o alla cazzo
+\subsection{Ordine}
+\label{sec:org81057b0}
+\begin{description}
+\item[{fdm tdm}] multiplexing per tempo o frequenza, infefficienti nelle lan perchè portano ad accesso discontinuo
+\item[{cdma}] code diviion multiple access
+ogni utente trasmette con tutta la banda del canale
+il ricevitore estrae solo la componente di interesse
+\item[{ofdma}] orhtogona frequency division multiple access
+l'acronimo si desccrive da solo
+\item[{polling}] \begin{description}
+\item[{roll call}] centralizzato, master gestisce autorizzazione e rilascio della risorsa canale
+\item[{hub polling}] cooperazione tra nodi
+\end{description}
+\end{description}
+
+poi i tipi di accesso possono essere
+\begin{description}
+\item[{gated}] hai il canale con una time slice massima
+\item[{esaustivo}] hai il canale finchè hai roba da mandare
+\end{description}
+
+altri tipi di accesso sono
+\begin{description}
+\item[{token passing}] implementazione distribuita, ci si passa la chiave (token) in giro
+\end{description}
+
+\subsection{Alla cazzo}
+\label{sec:org1860b7d}
+\begin{description}
+\item[{aloha}] nessun controllo sullo stato del canale
+\begin{description}
+\item[{puro}] nessun cordinamento
+mandi il pacchetto e aspetti un riscontro
+se non arriva il riscontro aspetti un tempo alla cazzo\footnote{con distribuzione uniforme in quanto così non ci sono tempi privilegiati che\ldots{}} e poi rimandi il pacchetto, sperando che stavolta funzioni
+\item[{slotted}] il tempo è divsiso in slot lunghi quanto il tempo di trasmissione
+i nodi possono mandare solo all'inizio di questi slot
+così quelle collisioni che avvengono sono più contenute
+collisioni gestite come nell'aloha puro, ma comunque slotted
+\end{description}
+\item[{CSMA}] carrier sense multiple access volto a ridurre le collisioni, si controlla che il canale non sia occupato prima di manda roba
+si può intepretare questo come collisione virtuale e riprovare dopo un tempo alla cazzo.
+
+Alcuni tipi di CSMA
+\begin{description}
+\item[{1-persistent}] un solo nodo in ascolto costante, funziona con pochi nodi
+\item[{non persistent}] 
+
+\item[{p-persistent}] si accede al canale su base statistica, ogni tanto alla cazzo
+\item[{cd}] (collision detection) si sta in ascolto sul canale anche durante la trasmissione per controllare che non arrivino flussi mentre sto fluendo
+\end{description}
+\end{description}
+
+\section{Ethernet}
+\label{sec:orgd2f02e6}
+può avere topologia a bus o stella
+usare cavo coassiale, doppino telefonico o fibra
+sviluppata perchè permette rate elevati ed è più flessibile di alternative quali FDDI
+
+\subsection{Livello MAC}
+\label{sec:orga338127}
+gestisce l'accesso al canale con csma cd modalità 1-persistent
+tutte le tecnologie ethernet hanno a livello di rete un servizio connectionless, quindi niente handshake
+se il frame ricevuto non è pertitnente (i byte di check crc non concordano) il frame viene scartato
+
+\subsubsection{Frame ethernet}
+\label{sec:org1f87f70}
+\begin{description}
+\item[{preambolo}] 7 byte
+\item[{delimitatore}] un byte
+\item[{indirizzo destinazione}] 6 byte
+\item[{indirizzo mittente}] 6 byte
+\item[{lunghezza/tipo}] 2 byte
+\item[{dati}] 
+
+\item[{crc}] 4 byte
+\end{description}
+
+formato sempre quello
+lughezze del frame minima 64 byte e massima 1518 byte, quella massima per gestire i buffer e non monopolizzare il canale
+
+\subsection{Livello fisico}
+\label{sec:org93a9753}
+ci sono varii ethernet e ognuno fa li cazzi sua con il livello fisico
+\begin{description}
+\item[{standard}] 10 mbps, implmentazioni
+\begin{description}
+\item[{10base5}] coassiale grosso, bus
+\item[{10base2}] coassiale sottile, bus (lughezza massima minore)
+\item[{10base-T}] doppino telefonico, stella
+\item[{10base-F}] fibra ottica, stella
+\end{description}
+\item[{veloce}] 100 mbps, retrocompatibile
+\item[{gigabilt}] 1 gigabit, retrocomatibile
+\item[{10 gigabilt}] 10 gigabit, retrocomatibile
+\end{description}
+
+\subsection{dispositivi di connessione}
+\label{sec:orge661a3b}
+per far comunicare lan distinte o connettere la lan alla rete globale si usano
+\begin{description}
+\item[{a livello applicazione}] gateway
+\item[{a livello trasporto}] gateway
+\item[{a livello rete}] gateway e router
+\item[{a livello collegamento}] gateway, router, e bridge
+\item[{a livello fisico}] gateway, router, bridge, e hub attivo
+\end{description}
+
+i dispositivi sono quindi
+\begin{description}
+\item[{hub passivo}] sta sotto l'hub attivo e agisce sotto il livello fisico, permette la continità del segnale tra cavi e reti distinti (internet mf)
+\item[{hub attivo}] ripetitore, connette a livello fisico due parti della sottrete, rigenera il segnale
+quando ci sono più ethernet con un hub in mezzo si comportano da lan, csma cd
+\item[{bridge}] controlla gli indirizzi mac per l'accesso and company tramite la tablella del bridge, filtra e inoltra pacchetti, apparte il bridge può starci un
+\item[{switch livello 2}] può operare per
+\begin{description}
+\item[{store and forward}] come un bridge, sicuro ma lento
+\item[{cut through}] come router, veloce ma può provocare perdita di frame
+\end{description}
+lo switch non è visibile ai nodi che specificano solo gli indirizzi di rete
+di base serve a filtrare ma funziona anche per inoltrare
+importante l'autoapprendimento sulla tabella di inoltro
+\item[{router}] processa pacchetti ricevuti dal livello di collegamento, li mette in un buffer, e dopo averli processati li inoltra sulla base di una tablella di routing, può operare in
+\begin{description}
+\item[{store and forward}] memorizza il pacchetto e lo inoltra
+\item[{cut through}] inoltra i pacchetti anche senza la loro completa ricezione
+\end{description}
+\item[{gateway}] sinomimo di router, ma per livelli sopra la rete, tipo trasporto o appliczione
+trasporta i pacchetti oltre la rete locale
+\end{description}
+
+\section{Wifi}
+\label{sec:orgfd4c951}
+Wireless fidelity
+standard IEEE 802.11
+si occupa solo delle specifiche a livello fisico e MAC
+formata da una cella elementare detta BSS contentente uno o più BS (Base Station), questa coordina la rete.
+nella wlan la BS è nota come Access Point (AP)
+
+\subsection{MAC}
+\label{sec:org51b0637}
+livello mac comune a tutte le alternative disponibili per il livello fisso,
+basato su CSMA CA\footnote{collisoin avoidance}, introdotta per la rete wireless
+csma ca si basa sulla rilevazione di portante con l'aggiunta funzionalità di prevenire le collisoini
+l'accesso al canale prevede che vi sia un ritardo detto ifs per l'invio del frame anche a canale libero
+per ridurre l'intervallo di vulnerabilità del l'ifs è diviso in
+\begin{description}
+\item[{sifs}] fisso
+\item[{aifs}] per dare priorità ai canali sensibili ai ritardi (es canali audio)
+\item[{difs}] tempo di attesa di terminale una volta trovato il canale libero, ma prima di mandare un pacchetto
+\item[{aifs}] per traffico a priorità più bassa, di "background"
+\item[{eifs}] tempo di attesa rima che un terminale notifichi gli altri se riceve un frame divettoso
+\end{description}
+l'ordine degli intervalli stabilisce una priorità per l'accesso al canale
+
+per accedere al canale si può fare
+\begin{description}
+\item[{alla cazzo di cane}] con \textbf{dcf}, se il canale è libero il terminale fa partire un contatore a decremento inizializzato a difs, quando il tempo scade, se è ancora libero, il terminale trasmette e resta in attesa dell'ack per un tempo sifs.
+se non si riceve si assume collisione virtuale e si gestisce la collisione, stato di contesa.
+entrati in contesa si prende una finestra di tempo, si sceglie in modo uniforme, e in pratica aloha
+
+la csma ca presenta alcune criticità come il
+\end{description}
+\end{document}

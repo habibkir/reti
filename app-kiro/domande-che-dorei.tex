@@ -1,0 +1,149 @@
+% Created 2023-07-23 Sun 20:01
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Biggie Dickus}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Biggie Dickus},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.5.5)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{Clos and company}
+\label{sec:org86bef48}
+\begin{itemize}
+\item T-S e condizioni di blocco (due volte)
+\item formula di clos
+\item formula di lee (due volte)
+\item ricavare la formula di lee per il caso S-S-S
+\item formula di clos per strutture T-S-T
+\end{itemize}
+
+\section{Reti}
+\label{sec:org022ab86}
+\subsection{WiMax}
+\label{sec:org13e8d85}
+\subsubsection{Classi di servizio}
+\label{sec:orgfdac13a}
+\subsection{Lan}
+\label{sec:orgffd1b31}
+\subsubsection{Dispositivi per la connessione}
+\label{sec:orgc2ac271}
+
+\section{Cazzo è un}
+\label{sec:org3d7d984}
+\subsection{SDH}
+\label{sec:org8d8c72d}
+\subsection{SSN7}
+\label{sec:org78a3fa0}
+\subsection{gossiping}
+\label{sec:orgf2f9a4f}
+\subsection{FDDI}
+\label{sec:org771105f}
+\begin{itemize}
+\item \textbf{Fiber Distributed Data Interface}
+\item \textbf{Fiber Distributed Data Interface}
+\item \textbf{Fiber Distributed Data Interface}
+\end{itemize}
+protocollo progettato che usa la fibra come mezzo trasmissivo
+la fibra ottica trasmette \(100 Mbps\) l'estensione massima di una tale rete è tanti tanti kilometri e permette di collegare sulle 500 stazioni
+
+standardizzata ansi
+
+evoluzione del token ring
+
+\begin{itemize}
+\item usa solo fibra
+\item area di lavoro estesa (MAN)
+\item resilienza ai guasti sia dei collegamenti che dei nodi
+\end{itemize}
+
+\subsubsection{Topologia}
+\label{sec:org7243735}
+doppio anello, un anello va da una parte, l'altro anello va dall'altra parte
+le comuncazionu usano uno solo dei due anelli, detto \emph{primario} (di solito quello esterno)
+l'altro anello, quello \emph{secondario}, viene attivato in caso di guasti o interruzioni dell'anello primario, aumentando la resistenza e flessibilità della rete.
+
+in casi particolari l'anello secondario può anche essere utilizzato per mandare ancora più roba portando il la capacità nominale di canale a \(200 Mbps\)
+
+\subsubsection{Utilizzi}
+\label{sec:org03cc5b9}
+la rete fddi è molto resistente e veloce, rendendola adatta a impieghi quale rete di backbone (o dorsali per lan) o per il trasferimento di molti dati in fretta e in modo accurato per ambiti sensibili quali ambiti ospedalieri.
+
+\subsubsection{A livello MAC}
+\label{sec:org049584f}
+l'accesso al canale da parte dei nodi avviene mediante tecnica ad accesso ordinato che si richiama al token ring
+supporta la trasmissione di traffico sincrono e asincrono
+per la trasmissione isocrono è stato definito uno standard \texttt{FDDI-II}, più contorto e meno cagato dell'\texttt{FDDI}.
+
+Il traffico sincrono non prevede livelli di priorità, a differenza del traffoco asincrono, per il quale ci sono 8 livelli di priorità.
+al traffoco sincrono viene sempre garantito il diritto di trasmissione mentre per il traffico asincrono si utilizza una modalità "best effort" (si trasmette quando possibile)
+
+la possibilità di gestire traffico sincrono e asicrono comporta la necessità di avere dei buffer in cui memorizzare sto traffico
+
+\subsubsection{Tipi di traffico}
+\label{sec:org85e533f}
+\begin{description}
+\item[{token frame}] (di segnalazione) ha una struttura predefinita nota a tutti i nodi, utilizzato per la condivisione dell'accesso, la stazione che ha il token frame è quella abilitata alla trasmissione, una volta terminato l'invio dei dati rilascia il token frame, mandandolo dopo aver mandato i dati
+\item[{data frame}] frame con dati
+\end{description}
+
+\subsubsection{Como il traffico}
+\label{sec:org83e70b0}
+c'è un check di integrità
+quando il destinatario si riconosce nel messaggio lo segna come letto
+tutti i nodi ripetono tutti i messaggi inviati tranne quelli mandati da loro stesso
+solo il nodo creatore/mittente di un messaggio può eliminare il messaggio in questione
+
+\subsubsection{Sborra token}
+\label{sec:org0b14d37}
+\begin{description}
+\item[{token target rotation time}] \[ TTRT \geq \sum_{i = 1}^{N_d} \alpha _i + \sum_{i=1}^{N_d} d_i \]
+dove
+\begin{description}
+\item[{\(\alpha _i\)}] è il tempo necessario alla stazione i-esima per la trasmissione del traffico sincrono
+\item[{\(d_i\)}] è il tempo di passaggio del token da una stazione alla successiva, detto \emph{walking time}
+\end{description}
+\end{description}
+
+per come è definito il \texttt{TTRT} indica il tempo di riferimento necessario al fine di assegnare a tutti i nodi della rete il diritto di trasmissione congruente con le necessità di accesso dichiarate
+una volta determinato e condviso il valore del \texttt{TTRT} allora la gestione dell'accesso viene implementata in maniera distribuita ed indipendete
+quindi in ogni nodo è reso disponibile un contatore che misura il \texttt{Token Rotaton Time} (o \texttt{TRT}) inteso come il tempo effettiv che incorre tra una ricezione del token e quella dopo
+
+ogni nodo tiene inoltre anche un contatore a solo decremento che definisce il tempo di accesso del nodo alla rete (quindi il tempo per cui ha tenuto il token, il contatore si chiama \texttt{Token Holding Time}, o \texttt{THT}.
+
+\[ THT := \begin{cases} \alpha _i & \text{ se } TTRT - TRT \leq 0 \\ TTRT-TRT & \text{ altrimenti } \end{cases} \]
+
+
+
+\subsection{dqdb}
+\label{sec:orgf75642a}
+\subsection{ATM}
+\label{sec:org3be1d3a}
+\subsection{PCF e DCF}
+\label{sec:orga094067}
+
+\section{Poi}
+\label{sec:org5a42899}
+\subsection{TCP IP}
+\label{sec:org3711004}
+\subsection{Terminale nascosto, terminale esposto}
+\label{sec:org8ecf2b3}
+\end{document}
