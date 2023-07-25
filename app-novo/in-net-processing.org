@@ -1,0 +1,59 @@
+* In Network Processing
+nelle wsn hai dei sensori che mandano a dei sink
+visto che
+ - misure da nodi vicini di solito sono correlate
+ - si deve usare /precchia poca/ banda/potenza
+
+di solito non conviene mandare /tutto tutto tutto/ sulla rete e si fa un minimo di lavorazione /on edge/ per poi dover mandare meno informazioni sulla rete.
+
+questo processamento può ad esempio consistere in
+ - data aggregation :: si combinano più dati di più sensosri in meno dati
+   tipico calcolare media/deviazione standard/... di più dati e inviare quella
+ - data fusion :: si usano informazioni dei sensori per rendere disponibili[fn::calcolando o indovinando] altre informazioni
+   (la metafora non ci ho capito una /sega/)
+
+** Clustering
+sono vicini, fai un cluster
+si assomigliano per tot, fai un cluster
+hanno informazioni simili, fai un cluster
+
+e poi ti gestisci certe cose a livello di cluster
+molto più fattibile che a livello di nodo
+
+*** LEACH
+#+begin_quote
+low energy adaptive clustering hierarchy
+#+end_quote
+consente di integrare funzionalità di data aggregation, cercando di limitare la ridondanza dei dati trasmessi.
+
+elegge (alla cazzo) dei capo cluster, e gli altri nodi si associano al cluster che gli costa meno.
+il clusterhead gestisce le comunicazioni col sink.
+visto che costa tanto gestire le cominicazioni col sink il ruolo di clusterhead viene girato di tanto in tanto, così non hai piero che si ammazza e gianfranco che non fa un cazzo tutto il tempo.
+
+per funzionare servono queste due assunzioni
+ - esiste un solo sink[fn::amen]
+ - tutti i nodi possono mandare direttamente al sink
+
+non c'è nel libro ma vorrei notare, sono assunzioni un po' del cazzo e questo approccio scala una merda, grazie Romano =:-)=
+
+la modalità di funzionamento è la seguente
+ 1. si stabilisce a priori il numero \(p\) di clusterhead
+ 2. ogni nodo sceglie un numero alla cazzo(uniforme) tra 0 e 1
+ 3. si definisce un \(T(n)\) valore di soglia definito come
+    \[ T(n) := \begin{cases}\frac{p}{1 - p r mod(\frac{1}{p})} & \text{ se} n \in G \\ 0 & \text{ altrimenti }\end{cases} \]
+    e che cazzo vuol dire?
+    - \(r\) :: numero dei round di selezione
+    - \(G\) :: indica il numero di nodi che non sono stati selezionati come clusterhead negli ultimi \(\frac{1}{p}\) round (scusa ma \(p\) era un intero che cazzo vuol dire \(\frac{1}{p}\) ?)
+      si noti che al primo round hanno tutti le stesse chance
+ 4. i nodi rimanenti si associano ai \(p\) clusterhead, di solito a quello più vicino
+
+
+ 
+*** HEED
+#+begin_quote
+Hybrid Energy Efficient Distributed Clustering
+#+end_quote
+
+la probabilità è basata su quanta potenza ti resta
+
+* IOT

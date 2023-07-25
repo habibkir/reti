@@ -1,0 +1,62 @@
+https://en.wikipedia.org/wiki/Wireless_sensor_network
+
+* Data Centric Forwarding
+instradamento =Data Centric= (=DC=)
+tecnica di instradamento per wsn alternativa all'address based
+
+evitano problemi dell'address based quali
+ - dover associare un indirizzo a ogni dispositivo della rete
+ - prevedere la mobilità dei dispositivi connessi alla rete
+ - prevedere un aggiornamenoto periodico dei possibili cammmini interni alle wsn
+
+invece di considerare il destinatario del pacco ne analizzano il significato, cazzo è questo, cazzo vuole dire, e su cosa.
+poi vede dove mandarlo
+
+permette le seguenti funzionalità
+ - data dissemination :: diffondere nell'intera wsn l'informazione acquisita dai sensori
+ - network centric processing :: elaborazione dei dati, spesso aggregazione, per evitare ridondanze sulla rete, processing /on edge/
+
+per evitare di mandare troppe merdate si usano indicatori di posizione atti aidentificare l'area di raccolta,richiesta, o interesse delle stesse
+si usano anche indicatori temporali per capire di quando è il dato, oltre che per elaborarli meglio, anche per poter scartare dati vecchi, che non mi servono.
+
+** Flooding
+ - lo mandi a tutti i vicini
+ - per evitare di mandarlo all'infinito usi un time to live
+ - bello il time to live ma poi devi anche implementare i meccanismi per supportarlo
+
+** Gossiping
+variante del flooding che, per evitare di allagare la rete, non manda il messaggio a tutti i vicini ma a un solo vicino su basi probabilistiche
+
+varianti del gossiping provano a ottimizzare la scelta o a utilizzare informazioni aggiuntive come , ad esempio sui nodi vicni (smart gossiping)
+
+* Direct Diffusion
+identifica i dati generati da un sensore usando una coppia atttributo-valore
+un qualsiasi altro membro della rete esprime il suo interesse verso dati mandando una lista di coppie attributo valore
+
+** Fasi
+la tecnica prevede le seguenti fasi
+ 1. *interest e gradient* : un elemento della =WSN= interessato (di solito un sink) manda in flooding la sua richiesta di interesse.
+    Il passaggio serve solo a scoprire chi ha quell'informazione.
+    a ogni rotta prorietario/interessato viene associata una misura, detta /gradiente/, circa la qualità della stessa (bitrate, affidabilità, etc), si scelgolo una o poche tra le rotte migliori
+ 2. *data propagation* : una volta ricevuta la dichiarazione di interesse e verificato che questa è pertinente a quanto sta effettivamente misurando, il nodo diventa sorgente e inoltra l'informazione verso l'interessato tramite le rotte trovate prima.
+    se il messaggio arriva ad un nodo non interessato, questo se ne fotte e non lo inoltra.
+ 3. *reinforcement* : il sink può procede a reinforzare la richiesta aggiungendo ulteriori specifiche per, ad esempio, eliminare percorsi poco affidabili o con bit rate basso, si tengono così solo i percorsi migliori e si sforza meno la rete.
+
+direct diffusion opera in modalità reattiva query driven, quindi non si adatta ad applicazioni che richiedono un invio costante di dati verso il sink    
+
+* SPIN
+#+begin_quote
+Sensor Protocol for Information via Negotion
+#+end_quote
+
+si basa sulla diffiusone nella wsn non delle informazioni ma di metadati
+prima che avvenga la trasmissione dell'info il nodo manda un =ADV=[fn::advertisement] che "pubblicizza" i metadati dei dati posseduti
+i nodi vicini interessati rispondono con una richiesta di invio (=REQ=), per poi ricevere i dati (=DATA=)
+
+i nuovi proprietarii dell'informazione procederanno quindi al diffondere il verbo dei dati che hanno appena acquisito, e gli interssati che lo riceverrano andranno avanti così fino a scopirire che mo' non interessa a nessuno :(
+
+** Problema
+se ho un nodo interessato, che non ha manco un vicino che gle frega, quel nodo non avrà mai il modo di ricevere il verbo
+
+ma migliora comunque le prestazioni rispetto al flooding, che tra un po' è esponenziale sul time to live, quindi va bene.
+

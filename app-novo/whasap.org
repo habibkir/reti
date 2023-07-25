@@ -1,0 +1,6 @@
+Da studiare tutti i capitoli tranne:
+ - il *capitolo 7* *dall'ieee802.16 in poi* no.
+ - Del *capitolo 8* *dall'8.3* (ultra wideband) *fino all'8.6* (protocollo 6lowpan) no,
+Si *ricomincia* direttamente all'*8.7*
+ - Ha saltato anche i cap 9, 10, 11, 12
+Sul gruppo si trova una lista di domande che frequentemente chiede all'orale (le domande alla fin fine sono sempre quelle una volta finita la lista ricomincia da capo)

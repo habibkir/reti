@@ -1,0 +1,86 @@
+* Controllo reattivo
+si reagisce
+perchè siamo reazionari
+** Sliding window
+*** Partiamo dai presupposti
+ - controllare inotro pacchetti su reti con end to end affidabile
+ - ogni pacchetto ha un numero di sequenza univoco, per identificarlo all'invio e al riscontro
+   
+*** Il metodo
+abemus un parametro \(WL\) o =Window Lenght=
+#+begin_src lisp
+  (defparameter *wl* "ok e mo'?")
+#+end_src
+questo rappresenta il numero di pacchetti inviabili di fila senza interruzione dal collegamento
+è definito sperando che quando te li hai mandati tutti ti è arrivato almeno il riscontro del primo così puoi far scorrere la finestra
+
+se va tutto bene mandi pacchetti e ricevi tutti bellino nella finestra
+
+*** Gestione e riconoscimento congestione
+/riprendendo/[fn::come no] l'analgia dell'/imbuto/ che ci passi dell'acuqa, qui si regola l'/imbuto/
+
+per gestire meglio la congestione quindi si limita il rate di invio, si restringe la finestra
+
+**** Riconoscimento
+si riconosce se il tempo di riscontro dei pacchetti esce dalla finestra temporale della finestra.[fn::pacchetti defenestrati]
+   
+**** Gestione
+si chiude la finestra, vale a dire, non si mandano pacchi finchè tutta i pacchetti della finestra non viene riscontrato il capofila[fn::il capofila se ne vaaaaaa]
+
+la frequenza di inoltro si mantiene quella nominale fino a quando il tempo per ricevere resta nel tempo di finestra.
+
+quando si inizia a vedere che c'è una congestione si ha un decremento iperbolico asintoticamente che tende ad azzerare la frequenza di inoltro, quindi il meccanismo della sliding window non garantisce un rate minimo[fn::a meno che questo minimo non sia 0, ma per quello usavo un piccione viaggiatore]
+
+* Nel TCP
+(non ci ho capito una sega)
+il tcp impone a ogni nodo della rete una frequenza massima calcolata dal livello di congestione percepito.
+ci limitiamo solo allo sloding window de tcp.
+
+si fa permettendo al dispositivo di cambiare la frequenza di inoltro dei pacchetti a seconda di quanti ne arrivano e/o di com'è messa la rete.
+
+quindi si aumenta la finestra quando si nota che passa poco per la rete ed è libera, e si restringe la finestra quando passa tanto per la rete e si blocca/rallenta.
+(vorrei chiarire qui che ogni volta che si parla di stato della rete ci si riferisce allo stato della rete percepito dal nodo, solo che scriverlo ogni volta rompe il cazzo)
+
+questa gestione della finestra si fa attraverso i messaggi di riscontro, ed è detta self clocking
+
+ci sono sostanzialmente 3 modalità per questa
+
+** Slow start
+dove tutto comincia
+le \(WL\) sono fissate a un valore di riferimento (tipo 1)
+si vuole mandare pacchi il più in fretta possibile, ma si deve capire quanto in fretta posso, quindi aumentiamo la dimensione della finestra ogni volta che ricevo un pacco in tempo.
+non appena si inizia a "eh cazzo così lagga" e non arriva per tempo un pacchetto
+ 1. fisso un valore di riferimento pari a metà della lunghezza congestionante
+ 2. andamo con un altro slow start, per vedere se si è compatibili con la lunghezza data
+
+** Congestion avoidance
+terminato lo slow start andamo in /congestion avoidance/
+la dimensione della finestra è quindi fissata a ~size = quello_della_congestione/2~
+
+in questa fase, per non essere dei pirla, su usa un metodo un po' più lento e andiamo in maniera lineare.
+ogni volta che tutti i pacchetti della finestra sono riscontrati si aumentoa di 1
+quando si trova una collisione la gestisci come lo slow start
+quindi incremento lineare, decremento esponenziale
+
+** Fast recovery
+Prevista nel TCP Reno
+distingue congestione lieve da congestione critica
+il pacchetto viene ritrasmesso/congestione grave se
+ - timeout, oppure
+ - arrivano i riscontri di almeno 3 pacchetti successivi, ma non quello
+
+la fast recovery prevede che si torna, di nuovo, allo slow start con finestra di riferimento massima di metà quella che ... la congestione critica,
+*OPPURE*, sempre con metà del valore che, vai a una congestion avoidance, questo quando 
+questo (la congestion avoidance e non slow start) quando la congestione è lieve.
+appena si riscontra il pacchetto che ha causato tutto la fast recovery esce e torna la congestion avoidance
+
+la tecnica sopra descritta è nota anche come AIMD
+ - *a* dditivem *i* ncrement
+ - *m* ultiplicative *d* ecrement
+
+   
+
+
+
+
+

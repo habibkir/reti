@@ -1,0 +1,105 @@
+% Created 2023-07-25 Tue 10:58
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Biggie Dickus}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Biggie Dickus},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.5.5)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\url{https://en.wikipedia.org/wiki/Wireless\_sensor\_network}
+
+\section{Data Centric Forwarding}
+\label{sec:orgd6b068e}
+instradamento \texttt{Data Centric} (\texttt{DC})
+tecnica di instradamento per wsn alternativa all'address based
+
+evitano problemi dell'address based quali
+\begin{itemize}
+\item dover associare un indirizzo a ogni dispositivo della rete
+\item prevedere la mobilità dei dispositivi connessi alla rete
+\item prevedere un aggiornamenoto periodico dei possibili cammmini interni alle wsn
+\end{itemize}
+
+invece di considerare il destinatario del pacco ne analizzano il significato, cazzo è questo, cazzo vuole dire, e su cosa.
+poi vede dove mandarlo
+
+permette le seguenti funzionalità
+\begin{description}
+\item[{data dissemination}] diffondere nell'intera wsn l'informazione acquisita dai sensori
+\item[{network centric processing}] elaborazione dei dati, spesso aggregazione, per evitare ridondanze sulla rete, processing \emph{on edge}
+\end{description}
+
+per evitare di mandare troppe merdate si usano indicatori di posizione atti aidentificare l'area di raccolta,richiesta, o interesse delle stesse
+si usano anche indicatori temporali per capire di quando è il dato, oltre che per elaborarli meglio, anche per poter scartare dati vecchi, che non mi servono.
+
+\subsection{Flooding}
+\label{sec:org3b94a8d}
+\begin{itemize}
+\item lo mandi a tutti i vicini
+\item per evitare di mandarlo all'infinito usi un time to live
+\item bello il time to live ma poi devi anche implementare i meccanismi per supportarlo
+\end{itemize}
+
+\subsection{Gossiping}
+\label{sec:orgc641552}
+variante del flooding che, per evitare di allagare la rete, non manda il messaggio a tutti i vicini ma a un solo vicino su basi probabilistiche
+
+varianti del gossiping provano a ottimizzare la scelta o a utilizzare informazioni aggiuntive come , ad esempio sui nodi vicni (smart gossiping)
+
+\section{Direct Diffusion}
+\label{sec:org7a5f1f1}
+identifica i dati generati da un sensore usando una coppia atttributo-valore
+un qualsiasi altro membro della rete esprime il suo interesse verso dati mandando una lista di coppie attributo valore
+
+\subsection{Fasi}
+\label{sec:orgc5b6af2}
+la tecnica prevede le seguenti fasi
+\begin{enumerate}
+\item \textbf{interest e gradient} : un elemento della \texttt{WSN} interessato (di solito un sink) manda in flooding la sua richiesta di interesse.
+Il passaggio serve solo a scoprire chi ha quell'informazione.
+a ogni rotta prorietario/interessato viene associata una misura, detta \emph{gradiente}, circa la qualità della stessa (bitrate, affidabilità, etc), si scelgolo una o poche tra le rotte migliori
+\item \textbf{data propagation} : una volta ricevuta la dichiarazione di interesse e verificato che questa è pertinente a quanto sta effettivamente misurando, il nodo diventa sorgente e inoltra l'informazione verso l'interessato tramite le rotte trovate prima.
+se il messaggio arriva ad un nodo non interessato, questo se ne fotte e non lo inoltra.
+\item \textbf{reinforcement} : il sink può procede a reinforzare la richiesta aggiungendo ulteriori specifiche per, ad esempio, eliminare percorsi poco affidabili o con bit rate basso, si tengono così solo i percorsi migliori e si sforza meno la rete.
+\end{enumerate}
+
+direct diffusion opera in modalità reattiva query driven, quindi non si adatta ad applicazioni che richiedono un invio costante di dati verso il sink    
+
+\section{SPIN}
+\label{sec:org913ff96}
+\begin{quote}
+Sensor Protocol for Information via Negotion
+\end{quote}
+
+si basa sulla diffiusone nella wsn non delle informazioni ma di metadati
+prima che avvenga la trasmissione dell'info il nodo manda un \texttt{ADV}\footnote{advertisement} che "pubblicizza" i metadati dei dati posseduti
+i nodi vicini interessati rispondono con una richiesta di invio (\texttt{REQ}), per poi ricevere i dati (\texttt{DATA})
+
+i nuovi proprietarii dell'informazione procederanno quindi al diffondere il verbo dei dati che hanno appena acquisito, e gli interssati che lo riceverrano andranno avanti così fino a scopirire che mo' non interessa a nessuno :(
+
+\subsection{Problema}
+\label{sec:orgbc8a4e5}
+se ho un nodo interessato, che non ha manco un vicino che gle frega, quel nodo non avrà mai il modo di ricevere il verbo
+
+ma migliora comunque le prestazioni rispetto al flooding, che tra un po' è esponenziale sul time to live, quindi va bene.
+\end{document}
